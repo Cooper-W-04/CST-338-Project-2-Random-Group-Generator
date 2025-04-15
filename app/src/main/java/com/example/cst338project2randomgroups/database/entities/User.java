@@ -1,4 +1,4 @@
-//TODO: see why this doesn't want to commit and push
+//TODO: make preferences on a table, have -1 be nagative, 1 be positive, and maybe have 0 as neutral
 package com.example.cst338project2randomgroups.database.entities;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class User {
     private boolean isStudent = false;
     private boolean isTeacher = false;
     private boolean isAdmin = false;
-    private User(String firstName, String lastName, String password, String status) {
+    public User(String firstName, String lastName, String password, String status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
