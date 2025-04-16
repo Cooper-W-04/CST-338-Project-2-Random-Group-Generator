@@ -2,13 +2,13 @@
 package com.example.cst338project2randomgroups.database.entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
     private String firstName;
     private String lastName;
     private String password;
-    private ArrayList<User> positivePreferences;
-    private ArrayList<User> negativePreferences;
+    private HashMap<String, ArrayList<Integer>> preferences;
 
     private boolean isStudent = false;
     private boolean isTeacher = false;
@@ -17,14 +17,26 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        setStatus(status);
+    }
+
+    private void setStatus(String status){
         if(status.equalsIgnoreCase("student")){
-            this.isStudent = true;
-            positivePreferences = new ArrayList<User>();
-            negativePreferences = new ArrayList<User>();
+            isStudent = true;
         } else if(status.equalsIgnoreCase("teacher")){
-            this.isTeacher = true;
+            isTeacher = true;
         } else {
-            this.isAdmin = true;
+            isAdmin = true;
+        }
+    }
+
+    public String getStatus(){
+        if(isStudent){
+            return "Student";
+        } else if(isTeacher){
+            return "Teacher";
+        } else{
+            return "Admin";
         }
     }
 
