@@ -45,7 +45,7 @@ public class User {
         return username;
     }
 
-    public void setUserame(String firstName) {
+    public void setUsername(String firstName) {
         this.username = firstName;
     }
 }
