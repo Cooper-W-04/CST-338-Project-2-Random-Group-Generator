@@ -15,20 +15,23 @@ public class User {
     public User(String username, String password, String status) {
         this.username = username;
         this.password = password;
-        setStatus(status);
+        setType(status);
     }
 
-    private void setStatus(String status){
+    private void setType(String status){
         if(status.equalsIgnoreCase("student")){
+            preferences = new HashMap<>();
             isStudent = true;
         } else if(status.equalsIgnoreCase("teacher")){
+            preferences = null;
             isTeacher = true;
         } else {
+            preferences = null;
             isAdmin = true;
         }
     }
 
-    public String getStatus(){
+    public String getType(){
         if(isStudent){
             return "Student";
         } else if(isTeacher){
