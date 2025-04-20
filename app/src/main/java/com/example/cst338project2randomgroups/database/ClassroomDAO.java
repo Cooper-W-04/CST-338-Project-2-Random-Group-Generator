@@ -1,4 +1,8 @@
 package com.example.cst338project2randomgroups.database;
 
-public class ClassroomDAO {
+import androidx.room.Dao;
+
+@Dao
+public interface ClassroomDAO {
+
 }
