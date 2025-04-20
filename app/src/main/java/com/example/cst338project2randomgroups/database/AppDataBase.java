@@ -1,4 +1,4 @@
 package com.example.cst338project2randomgroups.database;
 
-public class Placeholder {
+public class AppDataBase {
 }
