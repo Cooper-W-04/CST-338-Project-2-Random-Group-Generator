@@ -77,23 +77,37 @@ public class MainActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if(user != null){
-                invalidateOptionsMenu();
-                binding.welcome.setText("Welcome "+user.getRole() + "!");
-
-                if(user.getRole().equalsIgnoreCase("Admin")){
-                    binding.viewAllClasses.setVisibility(View.VISIBLE);
-                    binding.createAdmin.setVisibility(View.VISIBLE);
-                } else if(user.getRole().equalsIgnoreCase("Teacher")){
-                    binding.viewClasses.setVisibility(View.VISIBLE);
-                    binding.createNewClassroom.setVisibility(View.VISIBLE);
-                } else{
-                    binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
-                    binding.joinClassroom.setVisibility(View.VISIBLE);
-                }
+                updateAfterLogin();
             }
         });
+    }
 
+    private void updateAfterLogin(){
+        invalidateOptionsMenu();
+        binding.welcome.setText("Welcome "+user.getRole() + "!");
 
+        if(user.getRole().equalsIgnoreCase("Admin")){
+            binding.viewAllClasses.setVisibility(View.VISIBLE);
+            binding.createAdmin.setVisibility(View.VISIBLE);
+            binding.viewClasses.setVisibility(View.GONE);
+            binding.createNewClassroom.setVisibility(View.GONE);
+            binding.viewEnrolledClasses.setVisibility(View.GONE);
+            binding.joinClassroom.setVisibility(View.GONE);
+        } else if(user.getRole().equalsIgnoreCase("Teacher")){
+            binding.viewAllClasses.setVisibility(View.GONE);
+            binding.createAdmin.setVisibility(View.GONE);
+            binding.viewClasses.setVisibility(View.VISIBLE);
+            binding.createNewClassroom.setVisibility(View.VISIBLE);
+            binding.viewEnrolledClasses.setVisibility(View.GONE);
+            binding.joinClassroom.setVisibility(View.GONE);
+        } else{
+            binding.viewAllClasses.setVisibility(View.GONE);
+            binding.createAdmin.setVisibility(View.GONE);
+            binding.viewClasses.setVisibility(View.GONE);
+            binding.createNewClassroom.setVisibility(View.GONE);
+            binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
+            binding.joinClassroom.setVisibility(View.VISIBLE);
+        }
     }
 
     private void logout() {
