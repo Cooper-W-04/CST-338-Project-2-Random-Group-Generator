@@ -1,11 +1,15 @@
 package com.example.cst338project2randomgroups;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -40,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
         }
+
+        Button myButton = binding.logOutButton;
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLogoutDialog();
+            }
+        });
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -59,14 +71,64 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        updateSharedPreference();
+
         LiveData<User> userObserver = repository.getUserById(loggedInUserId);
         userObserver.observe(this, user -> {
             this.user = user;
             if(user != null){
                 invalidateOptionsMenu();
-                binding.welcome.setText("Welcome "+user.getRole());
+                binding.welcome.setText("Welcome "+user.getRole() + "!");
+
+                if(user.getRole().equalsIgnoreCase("Admin")){
+                    binding.viewAllClasses.setVisibility(View.VISIBLE);
+                    binding.createAdmin.setVisibility(View.VISIBLE);
+                } else if(user.getRole().equalsIgnoreCase("Teacher")){
+                    binding.viewClasses.setVisibility(View.VISIBLE);
+                    binding.createNewClassroom.setVisibility(View.VISIBLE);
+                } else{
+                    binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
+                    binding.joinClassroom.setVisibility(View.VISIBLE);
+                }
             }
         });
+
+
+    }
+
+    private void logout() {
+        loggedInUserId = LOGGED_OUT;
+        updateSharedPreference();
+        getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+    }
+
+    private void updateSharedPreference(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USERID_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+        sharedPrefEditor.putInt(SHARED_PREFERENCE_USERID_KEY, loggedInUserId);
+        sharedPrefEditor.apply();
+    }
+
+    private void showLogoutDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Logout?");
+        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
     }
 
     static Intent mainActivityIntentFactory(Context context, int userId){

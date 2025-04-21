@@ -1,4 +1,5 @@
 //TODO: make more interactions between classroom and user
+//TODO: make all the features that need to be made, this is how it is because of timing
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;

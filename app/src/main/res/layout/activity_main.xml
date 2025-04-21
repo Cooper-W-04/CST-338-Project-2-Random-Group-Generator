@@ -20,19 +20,90 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
-    <ExpandableListView
-        android:id="@+id/dropdown_menu"
-        android:layout_width="397dp"
-        android:layout_height="316dp"
-        android:layout_marginTop="132dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.9dp"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        app:layout_constraintTop_toBottomOf="@+id/welcome"
-        tools:layout_editor_absoluteX="7dp"
-        app:flow_horizontalAlign="center"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="@string/log_out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/viewAllClasses"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:text="@string/view_all_classrooms"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/createAdmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/createAdmin"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:text="@string/create_another_admin"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/viewClasses"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:text="@string/view_your_classrooms"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/createAdmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/createNewClassroom"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:text="@string/create_a_new_classroom"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/viewEnrolledClasses"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:text="@string/view_your_classrooms"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/createAdmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/joinClassroom"
+        android:layout_width="200dip"
+        android:layout_height="100dip"
+        android:text="@string/join_a_classroom"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
