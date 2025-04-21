@@ -16,12 +16,14 @@ public class User {
     private String username;
     private String password;
     private String role;
-    private HashMap<Integer, ArrayList<Integer>> preferences;
-    private ArrayList<Classroom> classes;
+    private boolean isAdmin = false;
+//    private HashMap<Integer, ArrayList<Integer>> preferences;
+//    private ArrayList<Classroom> classes;
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.isAdmin = role.equalsIgnoreCase("Admin");
         if(role.equalsIgnoreCase("Admin")){
             //allow the admin to edit all classes
         } else if(role.equalsIgnoreCase("teacher")){
@@ -29,7 +31,7 @@ public class User {
         } else{
             //sets the preferences to not null and makes their classes the one's they're a part of, which should be null
         }
-        classes = new ArrayList<>();
+//        classes = new ArrayList<>();
     }
 
     public String getRole(){
@@ -75,5 +77,29 @@ public class User {
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
