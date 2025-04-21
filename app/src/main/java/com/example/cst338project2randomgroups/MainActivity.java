@@ -16,6 +16,8 @@ import com.example.cst338project2randomgroups.database.AppRepository;
 import com.example.cst338project2randomgroups.database.entities.User;
 import com.example.cst338project2randomgroups.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     public static final int LOGGED_OUT = -1;
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
         repository = AppRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             this.user = user;
             if(user != null){
                 invalidateOptionsMenu();
+                binding.welcome.setText("Welcome "+user.getRole());
             }
         });
     }

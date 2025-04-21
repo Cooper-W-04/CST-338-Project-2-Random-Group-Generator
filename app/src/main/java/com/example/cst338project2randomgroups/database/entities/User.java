@@ -26,6 +26,7 @@ public class User {
         this.isAdmin = role.equalsIgnoreCase("Admin");
         if(role.equalsIgnoreCase("Admin")){
             //allow the admin to edit all classes
+            setAdmin(true);
         } else if(role.equalsIgnoreCase("teacher")){
             //make the list of classrooms the ones they're teaching, which when a user is created, should be nothing
         } else{
