@@ -23,6 +23,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.isAdmin = role.equalsIgnoreCase("Admin");
         if(role.equalsIgnoreCase("Admin")){
             //allow the admin to edit all classes
         } else if(role.equalsIgnoreCase("teacher")){
