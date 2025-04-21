@@ -89,4 +89,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
