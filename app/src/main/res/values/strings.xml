@@ -7,10 +7,4 @@
     <string name="welclome">Welclome!</string>
     <string name="welcome">Welcome!</string>
     <string name="welcome_admin">Welcome Admin!</string>
-    <string name="log_out">Log Out</string>
-    <string name="view_all_classrooms">View all Classrooms</string>
-    <string name="create_another_admin">Create another Admin</string>
-    <string name="view_your_classrooms">View your Classrooms</string>
-    <string name="create_a_new_classroom">Create a new Classroom</string>
-    <string name="join_a_classroom">Join a Classroom</string>
 </resources>
