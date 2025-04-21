@@ -16,6 +16,7 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private boolean isAdmin;
     private HashMap<Integer, ArrayList<Integer>> preferences;
     private ArrayList<Classroom> classes;
     public User(String username, String password, String role) {
@@ -34,6 +35,14 @@ public class User {
 
     public String getRole(){
         return role;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public String getUsername() {
@@ -76,4 +85,5 @@ public class User {
     public int getUserId() {
         return userId;
     }
+
 }
