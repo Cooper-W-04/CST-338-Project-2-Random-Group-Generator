@@ -16,6 +16,7 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private boolean isAdmin = false;
 //    private HashMap<Integer, ArrayList<Integer>> preferences;
 //    private ArrayList<Classroom> classes;
     public User(String username, String password, String role) {
