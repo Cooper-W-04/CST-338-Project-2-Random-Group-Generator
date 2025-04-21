@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/welcome"
-        android:layout_width="326dp"
-        android:layout_height="83dp"
+        android:layout_width="400dp"
+        android:layout_height="81dp"
         android:paddingStart="55dp"
         android:text="@string/welcome"
         android:textSize="34sp"
