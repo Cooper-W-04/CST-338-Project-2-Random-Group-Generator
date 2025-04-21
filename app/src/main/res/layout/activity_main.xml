@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/welcome"
         tools:layout_editor_absoluteX="7dp"
         app:flow_horizontalAlign="center"
-        app:layout_constraintHorizontal_chainStyle=""
+        app:layout_constraintHorizontal_chainStyle="spread"
         tools:ignore="MissingConstraints" />
 
 
