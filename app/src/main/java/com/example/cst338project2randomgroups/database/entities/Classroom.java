@@ -15,23 +15,22 @@ import java.util.HashSet;
 @Entity(tableName = "classrooms",
         foreignKeys = @ForeignKey(
                 entity = User.class,
-                parentColumns = "id",
+                parentColumns = "userId",
                 childColumns = "teacherId",
                 onDelete = ForeignKey.CASCADE),
         indices = {@Index("teacherId"), @Index(value = {"className"}, unique = true)})
 public class Classroom {
-    private ClassroomDAO classroomDao;
     @PrimaryKey(autoGenerate = true)
     private int classroomId;
     private int teacherId;
     private String className;
-    private ArrayList<User> students;
-    private ArrayList<User[]> groups;
+//    private ArrayList<User> students;
+//    private ArrayList<User[]> groups;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
-        students = new ArrayList<>();
+//        students = new ArrayList<>();
     }
 
     public void addStudent(User student){
@@ -39,10 +38,10 @@ public class Classroom {
             //case that the user is not a student
             return;
         }
-        students.add(student);
-        for(int i = 0; i<students.size(); i++){
-            students.get(i).updatePreference(0, student.getUsername(), className);
-        }
+//        students.add(student);
+//        for(int i = 0; i<students.size(); i++){
+//            students.get(i).updatePreference(0, student.getUsername(), className);
+//        }
     }
 
     public void createGroups(int size){
@@ -54,8 +53,20 @@ public class Classroom {
 //        return getUserById(teacherId);
 //    }
 
-    public void setTeacher(User teacher) {
-        this.teacherId = teacher.getUserId();
+
+
+    public static Classroom getClassroomByName(String name){
+        //TODO: make this actually work and move it to where it's supposed to be
+        //TODO: maybe make this be in the database
+        return new Classroom(1, "test");
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 
     public String getClassName() {
@@ -66,13 +77,11 @@ public class Classroom {
         this.className = className;
     }
 
-    public ArrayList<User> getStudents() {
-        return students;
+    public int getClassroomId() {
+        return classroomId;
     }
 
-    public static Classroom getClassroomByName(String name){
-        //TODO: make this actually work and move it to where it's supposed to be
-        //TODO: maybe make this be in the database
-        return new Classroom(1, "test");
+    public void setClassroomId(int classroomId) {
+        this.classroomId = classroomId;
     }
 }
