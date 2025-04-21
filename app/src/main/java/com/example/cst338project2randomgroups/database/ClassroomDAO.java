@@ -13,10 +13,10 @@ public interface ClassroomDAO {
     @Insert
     long insertClassroom(Classroom classroom);
 
-    @Query("SELECT * FROM classrooms WHERE id = :id LIMIT 1")
-    Classroom getClassroomById(int id);
+    @Query("SELECT * FROM classrooms WHERE classroomId == :classroomId LIMIT 1")
+    Classroom getClassroomById(int classroomId);
 
-    @Query("SELECT * FROM classrooms WHERE className = :className LIMIT 1")
+    @Query("SELECT * FROM classrooms WHERE className == :className LIMIT 1")
     Classroom getClassroomByName(String className);
 
     @Update

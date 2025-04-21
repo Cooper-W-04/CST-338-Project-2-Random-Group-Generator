@@ -16,8 +16,9 @@ public class LoginActivity extends AppCompatActivity {
 //    private GymLogRepository repository;
 
     @Override
-    public void onCreate() {
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
     }
 
     private void verifyUser(){

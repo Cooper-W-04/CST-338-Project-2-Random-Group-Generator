@@ -13,10 +13,10 @@ public interface UserDAO {
     @Insert
     long insertUser(User user);
 
-    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
-    User getUserById(int id);
+    @Query("SELECT * FROM users WHERE userId == :userId LIMIT 1")
+    User getUserById(int userId);
 
-    @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
+    @Query("SELECT * FROM users WHERE username == :username LIMIT 1")
     User getUserByUsername(String username);
 
     @Update

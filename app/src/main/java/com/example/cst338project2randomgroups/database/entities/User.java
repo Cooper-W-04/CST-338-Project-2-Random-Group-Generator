@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Entity(tableName = "Users")
+@Entity(tableName = "users")
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int userId;
