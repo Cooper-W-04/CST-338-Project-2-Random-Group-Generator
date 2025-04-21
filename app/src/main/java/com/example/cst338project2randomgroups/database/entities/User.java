@@ -1,6 +1,5 @@
 //TODO: make preferences on a table, have -1 be nagative, 1 be positive, and maybe have 0 as neutral
 package com.example.cst338project2randomgroups.database.entities;
-
 import static android.text.TextUtils.indexOf;
 
 import androidx.room.Entity;
@@ -8,7 +7,6 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 @Entity(tableName = "users")
 public class User {
     @PrimaryKey(autoGenerate = true)
