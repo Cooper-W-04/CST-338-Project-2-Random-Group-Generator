@@ -1,24 +1,41 @@
 //TODO: make more interactions between classroom and user
 package com.example.cst338project2randomgroups.database.entities;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+import com.example.cst338project2randomgroups.database.ClassroomDAO;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+@Entity(tableName = "classrooms",
+        foreignKeys = @ForeignKey(
+                entity = User.class,
+                parentColumns = "id",
+                childColumns = "teacherId",
+                onDelete = ForeignKey.CASCADE),
+        indices = {@Index("teacherId"), @Index(value = {"className"}, unique = true)})
 public class Classroom {
-    private User teacher;
+    private ClassroomDAO classroomDao;
+    @PrimaryKey(autoGenerate = true)
+    private int classroomId;
+    private int teacherId;
     private String className;
     private ArrayList<User> students;
     private ArrayList<User[]> groups;
 
-    public Classroom(User teacher, String className){
-        this.teacher = teacher;
+    public Classroom(int teacherId, String className){
+        this.teacherId = teacherId;
         this.className = className;
         students = new ArrayList<>();
     }
 
     public void addStudent(User student){
-        if(!student.getType().equalsIgnoreCase("student")){
+        if(!student.getRole().equalsIgnoreCase("student")){
             //case that the user is not a student
             return;
         }
@@ -32,12 +49,13 @@ public class Classroom {
         //TODO: make code to see how many groups need to be made, also the rest of the method
     }
 
-    public User getTeacher() {
-        return teacher;
-    }
+//    TODO: make this return the correct thing
+//    public User getTeacher() {
+//        return getUserById(teacherId);
+//    }
 
     public void setTeacher(User teacher) {
-        this.teacher = teacher;
+        this.teacherId = teacher.getUserId();
     }
 
     public String getClassName() {
@@ -54,6 +72,7 @@ public class Classroom {
 
     public static Classroom getClassroomByName(String name){
         //TODO: make this actually work and move it to where it's supposed to be
-        return new Classroom(new User("gamer", "gamer", "teacher"), "test");
+        //TODO: maybe make this be in the database
+        return new Classroom(1, "test");
     }
 }

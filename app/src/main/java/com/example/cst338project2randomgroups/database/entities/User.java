@@ -3,46 +3,37 @@ package com.example.cst338project2randomgroups.database.entities;
 
 import static android.text.TextUtils.indexOf;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Entity(tableName = "Users")
 public class User {
+    @PrimaryKey(autoGenerate = true)
+    private int userId;
     private String username;
     private String password;
-    private HashMap<Classroom, ArrayList<Integer>> preferences;
+    private String role;
+    private HashMap<Integer, ArrayList<Integer>> preferences;
     private ArrayList<Classroom> classes;
-
-    private boolean isStudent = false;
-    private boolean isTeacher = false;
-    private boolean isAdmin = false;
-    public User(String username, String password, String status) {
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
-        setType(status);
+        this.role = role;
+        if(role.equalsIgnoreCase("Admin")){
+            //allow the admin to edit all classes
+        } else if(role.equalsIgnoreCase("teacher")){
+            //make the list of classrooms the ones they're teaching, which when a user is created, should be nothing
+        } else{
+            //sets the preferences to not null and makes their classes the one's they're a part of, which should be null
+        }
         classes = new ArrayList<>();
     }
 
-    private void setType(String status){
-        if(status.equalsIgnoreCase("student")){
-            preferences = new HashMap<>();
-            isStudent = true;
-        } else if(status.equalsIgnoreCase("teacher")){
-            preferences = null;
-            isTeacher = true;
-        } else {
-            preferences = null;
-            isAdmin = true;
-        }
-    }
-
-    public String getType(){
-        if(isStudent){
-            return "Student";
-        } else if(isTeacher){
-            return "Teacher";
-        } else{
-            return "Admin";
-        }
+    public String getRole(){
+        return role;
     }
 
     public String getUsername() {
@@ -53,30 +44,36 @@ public class User {
         this.username = firstName;
     }
 
-    public void updatePreference(int preference, String name, String className){
-        if(isStudent){
-            Classroom classroom = Classroom.getClassroomByName(className);
-            if(classes.contains(classroom)){
-                User kid = User.getUserByUsername(name);
-                ArrayList<User> kids = classroom.getStudents();
-                if(kids.contains(kid)){
-                    preferences.get(classroom).set(kids.indexOf(kid), preference);
-                } else{
-                    //student not in classroom
-                    return;
-                }
-            } else{
-                //student not in the class
-                return;
-            }
-        } else{
-            //user is not a student
-            return;
-        }
+    public void updatePreference(int preference, String name, String classId){
+//TODO: fix this logic so that it works with tables
+//        if(role.equalsIgnoreCase("Student")){
+//            Classroom classroom = Classroom.getClassroomById(classId);
+//            if(classes.contains(classroom)){
+//                User kid = User.getUserByUsername(name);
+//                ArrayList<User> kids = classroom.getStudents();
+//                if(kids.contains(kid)){
+//                    preferences.get(classroom).set(kids.indexOf(kid), preference);
+//                } else{
+//                    //student not in classroom
+//                    return;
+//                }
+//            } else{
+//                //student not in the class
+//                return;
+//            }
+//        } else{
+//            //user is not a student
+//            return;
+//        }
     }
 
     public static User getUserByUsername(String name){
         //TODO: make this actually work and move it to where it's supposed to be
+        //TODO: also put it in the database class
         return new User("gamer", "gamer", "student");
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }
