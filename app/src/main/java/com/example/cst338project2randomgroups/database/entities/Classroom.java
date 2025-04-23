@@ -13,24 +13,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-@Entity(tableName = "classrooms",
-        foreignKeys = @ForeignKey(
-                entity = User.class,
-                parentColumns = "userId",
-                childColumns = "teacherId",
-                onDelete = ForeignKey.CASCADE),
-        indices = {@Index("teacherId"), @Index(value = {"className"}, unique = true)})
+@Entity(tableName = "classrooms")
 public class Classroom {
     @PrimaryKey(autoGenerate = true)
     private int classroomId;
     private int teacherId;
     private String className;
+    private final int rosterId;
+    private Roster roster;
 //    private ArrayList<User> students;
 //    private ArrayList<User[]> groups;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
+        this.roster = new Roster(classroomId);
+        this.rosterId = roster.getRosterId();
 //        students = new ArrayList<>();
     }
 

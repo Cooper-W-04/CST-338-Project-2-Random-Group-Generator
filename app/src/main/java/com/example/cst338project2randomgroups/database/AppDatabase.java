@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 @Database(entities = {User.class, Classroom.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
-    private static final String DATABASE_NAME = "GymLogDatabase";
+    private static final String DATABASE_NAME = "AppDatabase";
     public static final String GYM_LOG_TABLE = "gymLogTable";
 
     private static volatile AppDatabase INSTANCE;
@@ -67,4 +67,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ClassroomDAO classroomDAO();
 
     public abstract UserDAO userDAO();
+
+    public abstract RosterDAO rosterDAO();
 }

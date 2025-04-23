@@ -11,7 +11,7 @@ import com.example.cst338project2randomgroups.database.entities.Classroom;
 @Dao
 public interface ClassroomDAO {
     @Insert
-    long insertClassroom(Classroom classroom);
+    long insert(Classroom classroom);
 
     @Query("SELECT * FROM classrooms WHERE classroomId == :classroomId LIMIT 1")
     Classroom getClassroomById(int classroomId);
