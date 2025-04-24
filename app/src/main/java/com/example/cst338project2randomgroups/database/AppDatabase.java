@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cst338project2randomgroups.database.entities.Classroom;
+import com.example.cst338project2randomgroups.database.entities.Roster;
 import com.example.cst338project2randomgroups.database.entities.User;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Classroom.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Classroom.class, Roster.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
     private static final String DATABASE_NAME = "AppDatabase";

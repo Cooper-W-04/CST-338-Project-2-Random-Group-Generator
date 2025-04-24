@@ -8,10 +8,12 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.example.cst338project2randomgroups.database.ClassroomDAO;
+import com.example.cst338project2randomgroups.database.UserDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 @Entity(tableName = "classrooms")
 public class Classroom {
@@ -19,40 +21,39 @@ public class Classroom {
     private int classroomId;
     private int teacherId;
     private String className;
-    private final int rosterId;
+    private int rosterId;
     private Roster roster;
-//    private ArrayList<User> students;
-//    private ArrayList<User[]> groups;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
         this.roster = new Roster(classroomId);
         this.rosterId = roster.getRosterId();
-//        students = new ArrayList<>();
     }
 
     public void addStudent(User student){
         if(!student.getRole().equalsIgnoreCase("student")){
-            //case that the user is not a student
             return;
         }
-//        students.add(student);
-//        for(int i = 0; i<students.size(); i++){
-//            students.get(i).updatePreference(0, student.getUsername(), className);
-//        }
+        this.roster.addStudent(student.getUserId());
     }
 
     public void createGroups(int size){
         //TODO: make code to see how many groups need to be made, also the rest of the method
     }
 
-//    TODO: make this return the correct thing
-//    public User getTeacher() {
-//        return getUserById(teacherId);
-//    }
+    public User getTeacher(UserDAO userDAO){
+        return userDAO.getUserById(teacherId).getValue();
+    }
 
 
+    public List<User> getStudents(UserDAO userDAO) {
+        List<User> students = new ArrayList<>();
+        for (int studentId : roster.getStudentIds()) {
+            students.add(userDAO.getUserById(studentId).getValue());
+        }
+        return students;
+    }
 
     public static Classroom getClassroomByName(String name){
         //TODO: make this actually work and move it to where it's supposed to be
@@ -82,5 +83,21 @@ public class Classroom {
 
     public void setClassroomId(int classroomId) {
         this.classroomId = classroomId;
+    }
+
+    public int getRosterId() {
+        return rosterId;
+    }
+
+    public Roster getRoster() {
+        return roster;
+    }
+
+    public void setRoster(Roster roster) {
+        this.roster = roster;
+    }
+
+    public void setRosterId(int rosterId) {
+        this.rosterId = rosterId;
     }
 }
