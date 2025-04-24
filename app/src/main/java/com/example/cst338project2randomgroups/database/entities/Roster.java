@@ -57,4 +57,16 @@ public class Roster {
     public void setClassroomId(int classroomId) {
         this.classroomId = classroomId;
     }
+
+    public void setStudentIds(List<Integer> studentIds) {
+        this.studentIds = studentIds;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
 }

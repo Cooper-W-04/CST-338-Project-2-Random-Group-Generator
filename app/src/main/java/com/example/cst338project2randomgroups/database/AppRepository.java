@@ -48,7 +48,7 @@ public class AppRepository {
         try{
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.d("CJW", "Problem getting GymLogRepository, thread error.");
+            Log.d("CJW", "Problem getting AppRepository, thread error.");
         }
         return null;
     }

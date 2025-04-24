@@ -22,21 +22,23 @@ public class Classroom {
     private int teacherId;
     private String className;
     private int rosterId;
-    private Roster roster;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
-        this.roster = new Roster(classroomId);
+        Roster roster = new Roster(classroomId);
+//        TODO: make this work
+//        roster.insert();
         this.rosterId = roster.getRosterId();
     }
 
-    public void addStudent(User student){
-        if(!student.getRole().equalsIgnoreCase("student")){
-            return;
-        }
-        this.roster.addStudent(student.getUserId());
-    }
+//TODO: make this work
+//    public void addStudent(User student){
+//        if(!student.getRole().equalsIgnoreCase("student")){
+//            return;
+//        }
+//        this.getRosterById(rosterId).addStudent(student.getUserId());
+//    }
 
     public void createGroups(int size){
         //TODO: make code to see how many groups need to be made, also the rest of the method
@@ -47,13 +49,14 @@ public class Classroom {
     }
 
 
-    public List<User> getStudents(UserDAO userDAO) {
-        List<User> students = new ArrayList<>();
-        for (int studentId : roster.getStudentIds()) {
-            students.add(userDAO.getUserById(studentId).getValue());
-        }
-        return students;
-    }
+//TODO: make this able to be here
+//    public List<User> getStudents(UserDAO userDAO) {
+//        List<User> students = new ArrayList<>();
+//        for (int studentId : getRosterById(rosterId).getStudentIds()) {
+//            students.add(userDAO.getUserById(studentId).getValue());
+//        }
+//        return students;
+//    }
 
     public static Classroom getClassroomByName(String name){
         //TODO: make this actually work and move it to where it's supposed to be
@@ -87,14 +90,6 @@ public class Classroom {
 
     public int getRosterId() {
         return rosterId;
-    }
-
-    public Roster getRoster() {
-        return roster;
-    }
-
-    public void setRoster(Roster roster) {
-        this.roster = roster;
     }
 
     public void setRosterId(int rosterId) {
