@@ -25,6 +25,11 @@ public interface RosterDAO {
     @Query("SELECT * FROM rosters")
     List<Roster> getAllRosters();
 
+    @Query("SELECT * FROM rosters WHERE studentId = :studentId")
+    List<Roster> getRostersByStudentId(int studentId);
+
+    //TODO: make a getStudentIds() method
+
     @Update
     void updateRoster(Roster roster);
 

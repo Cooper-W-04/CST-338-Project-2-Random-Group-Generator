@@ -1,6 +1,7 @@
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -9,37 +10,28 @@ import com.example.cst338project2randomgroups.database.typeConverters.ListConver
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "rosters")
-@TypeConverters(ListConverters.class)
+@Entity(tableName = "rosters",
+        primaryKeys = {"classroomId", "studentId"},
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Classroom.class,
+                        parentColumns = "classroomId",
+                        childColumns = "classroomId",
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = User.class,
+                        parentColumns = "userId",
+                        childColumns = "studentId",
+                        onDelete = ForeignKey.CASCADE
+                )})
 public class Roster {
-    @PrimaryKey (autoGenerate = true)
     private int rosterId;
     private int classroomId;
     private int studentId;
-
-    @TypeConverters(ListConverters.class) // COMMENT: Tells Room to use the custom converter for List<Integer>
-    private List<Integer> studentIds;
-    public Roster(int classroomId){
+    public Roster(int classroomId, int studentId){
         this.classroomId = classroomId;
-        this.studentIds = new ArrayList<>();
-    }
-
-    public void addStudent(int studentId) {
-        if (!studentIds.contains(studentId)) {
-            studentIds.add(studentId);
-        }
-    }
-
-    public void removeStudent(int studentId) {
-        studentIds.remove(Integer.valueOf(studentId));
-    }
-
-    public boolean containsStudent(int studentId) {
-        return studentIds.contains(studentId);
-    }
-
-    public List<Integer> getStudentIds() {
-        return studentIds;
+        this.studentId = studentId;
     }
 
     public int getRosterId() {
@@ -56,10 +48,6 @@ public class Roster {
 
     public void setClassroomId(int classroomId) {
         this.classroomId = classroomId;
-    }
-
-    public void setStudentIds(List<Integer> studentIds) {
-        this.studentIds = studentIds;
     }
 
     public int getStudentId() {

@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.example.cst338project2randomgroups.database.entities.Classroom;
 
+import java.util.List;
+
 @Dao
 public interface ClassroomDAO {
     @Insert
@@ -18,6 +20,12 @@ public interface ClassroomDAO {
 
     @Query("SELECT * FROM classrooms WHERE className == :className LIMIT 1")
     Classroom getClassroomByName(String className);
+
+    @Query("SELECT * FROM classrooms WHERE teacherId = :teacherId")
+    List<Classroom> getClassroomsByTeacherId(int teacherId);
+
+    @Query("SELECT * FROM classrooms")
+    List<Classroom> getAllClassrooms();
 
     @Update
     void updateClassroom(Classroom classroom);

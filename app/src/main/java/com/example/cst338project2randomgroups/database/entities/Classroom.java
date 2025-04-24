@@ -15,53 +15,31 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-@Entity(tableName = "classrooms")
+@Entity(
+        tableName = "classrooms",
+        foreignKeys = {
+                // ✅ OPTIONAL: Enforce teacher link if you want referential integrity
+                @ForeignKey(
+                        entity = User.class,
+                        parentColumns = "userId",
+                        childColumns = "teacherId",
+                        onDelete = ForeignKey.CASCADE
+                )
+        }
+)
 public class Classroom {
     @PrimaryKey(autoGenerate = true)
     private int classroomId;
     private int teacherId;
     private String className;
-    private int rosterId;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
-        Roster roster = new Roster(classroomId);
-//        TODO: make this work
-//        roster.insert();
-        this.rosterId = roster.getRosterId();
     }
-
-//TODO: make this work
-//    public void addStudent(User student){
-//        if(!student.getRole().equalsIgnoreCase("student")){
-//            return;
-//        }
-//        this.getRosterById(rosterId).addStudent(student.getUserId());
-//    }
 
     public void createGroups(int size){
         //TODO: make code to see how many groups need to be made, also the rest of the method
-    }
-
-    public User getTeacher(UserDAO userDAO){
-        return userDAO.getUserById(teacherId).getValue();
-    }
-
-
-//TODO: make this able to be here
-//    public List<User> getStudents(UserDAO userDAO) {
-//        List<User> students = new ArrayList<>();
-//        for (int studentId : getRosterById(rosterId).getStudentIds()) {
-//            students.add(userDAO.getUserById(studentId).getValue());
-//        }
-//        return students;
-//    }
-
-    public static Classroom getClassroomByName(String name){
-        //TODO: make this actually work and move it to where it's supposed to be
-        //TODO: maybe make this be in the database
-        return new Classroom(1, "test");
     }
 
     public int getTeacherId() {
@@ -86,13 +64,5 @@ public class Classroom {
 
     public void setClassroomId(int classroomId) {
         this.classroomId = classroomId;
-    }
-
-    public int getRosterId() {
-        return rosterId;
-    }
-
-    public void setRosterId(int rosterId) {
-        this.rosterId = rosterId;
     }
 }
