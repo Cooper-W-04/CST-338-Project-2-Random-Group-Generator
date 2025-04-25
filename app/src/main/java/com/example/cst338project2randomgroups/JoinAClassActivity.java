@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,7 +39,6 @@ public class JoinAClassActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getClassroomIdFromEditText();
 
-
             }
         });
 
@@ -47,15 +47,6 @@ public class JoinAClassActivity extends AppCompatActivity {
     static Intent joinAClassIntentFactory(Context context) {
         return new Intent(context, JoinAClassActivity.class);
     }
-
-
-
-
-
-
-
-
-
 
 
 
