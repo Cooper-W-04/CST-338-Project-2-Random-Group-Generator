@@ -11,4 +11,8 @@
     <string name="view_your_classrooms">View your Classrooms</string>
     <string name="create_a_new_classroom">Create a new Classroom</string>
     <string name="join_a_classroom">Join a Classroom</string>
+    <string name="welcome_to_groupup">Welcome to GroupUp</string>
+    <string name="enter_class_id">Enter Class ID</string>
+    <string name="enter_class_id_here">enter class id here</string>
+    <string name="add_me">Add Me!</string>
 </resources>

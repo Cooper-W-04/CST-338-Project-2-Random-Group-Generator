@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".JoinAClassActivity"
+            android:exported="false" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".MainActivity"
