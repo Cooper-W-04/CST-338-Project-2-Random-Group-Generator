@@ -4,29 +4,16 @@ package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.example.cst338project2randomgroups.database.ClassroomDAO;
-import com.example.cst338project2randomgroups.database.UserDAO;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-
-@Entity(
-        tableName = "classrooms",
+@Entity(tableName = "classrooms",
         foreignKeys = {
-                // ✅ OPTIONAL: Enforce teacher link if you want referential integrity
                 @ForeignKey(
                         entity = User.class,
                         parentColumns = "userId",
                         childColumns = "teacherId",
                         onDelete = ForeignKey.CASCADE
-                )
-        }
-)
+                )})
 public class Classroom {
     @PrimaryKey(autoGenerate = true)
     private int classroomId;

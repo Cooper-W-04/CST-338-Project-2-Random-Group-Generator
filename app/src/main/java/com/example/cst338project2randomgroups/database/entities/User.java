@@ -1,5 +1,4 @@
 //TODO: make preferences on a table, have -1 be negative, 1 be positive, and maybe have 0 as neutral
-//TODO: make all the features that need to be made, this is how it is because of timing
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
