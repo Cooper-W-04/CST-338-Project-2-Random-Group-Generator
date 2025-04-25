@@ -16,6 +16,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 @Database(entities = {User.class, Classroom.class, Roster.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
@@ -50,14 +51,14 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 UserDAO dao = INSTANCE.userDAO();
                 dao.deleteAll();
-                User admin = new User("admin1", "admin1", "admin");
+                User admin = new User("admin1", "admin1", "Admin");
                 admin.setAdmin(true);
                 dao.insert(admin);
 
-                User student1 = new User("student1", "student1", "student");
-                dao.insert(student1);
+                User testUser1 = new User("student1", "student1", "Student");
+                dao.insert(testUser1);
 
-                User teacher1 = new User("teacher1", "teacher1", "teacher");
+                User teacher1 = new User("teacher1", "teacher1", "Teacher");
                 dao.insert(teacher1);
             });
         }
