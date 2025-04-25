@@ -6,6 +6,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.cst338project2randomgroups.database.RosterDAO;
+import com.example.cst338project2randomgroups.database.UserDAO;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(tableName = "classrooms",
         foreignKeys = {
                 @ForeignKey(
@@ -51,5 +57,22 @@ public class Classroom {
 
     public void setClassroomId(int classroomId) {
         this.classroomId = classroomId;
+    }
+
+    public User getTeacher(UserDAO userDAO) {
+        return userDAO.getUserById(teacherId).getValue();
+    }
+
+    public List<User> getStudents(UserDAO userDAO, RosterDAO rosterDAO) {
+        List<User> students = new ArrayList<>();
+        for (Roster roster : rosterDAO.getAllRosters()) {
+            if (roster.getClassroomId() == classroomId) {
+                User student = userDAO.getUserById(roster.getStudentId()).getValue();
+                if (student != null && student.getRole().equalsIgnoreCase("student")) {
+                    students.add(student);
+                }
+            }
+        }
+        return students;
     }
 }
