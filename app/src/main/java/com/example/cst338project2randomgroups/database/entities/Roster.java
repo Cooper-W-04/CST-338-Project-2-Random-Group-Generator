@@ -2,13 +2,6 @@ package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.example.cst338project2randomgroups.database.typeConverters.ListConverters;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity(tableName = "rosters",
         primaryKeys = {"classroomId", "studentId"},
