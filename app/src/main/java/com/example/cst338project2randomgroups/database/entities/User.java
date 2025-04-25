@@ -2,8 +2,6 @@
 //TODO: make all the features that need to be made, this is how it is because of timing
 package com.example.cst338project2randomgroups.database.entities;
 
-import static android.text.TextUtils.indexOf;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -11,7 +9,6 @@ import com.example.cst338project2randomgroups.database.ClassroomDAO;
 import com.example.cst338project2randomgroups.database.RosterDAO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity(tableName = "users")
@@ -27,15 +24,6 @@ public class User {
         this.password = password;
         this.role = role;
         this.isAdmin = role.equalsIgnoreCase("Admin");
-        if(role.equalsIgnoreCase("Admin")){
-            //allow the admin to edit all classes
-            setAdmin(true);
-        } else if(role.equalsIgnoreCase("teacher")){
-            //make the list of classrooms the ones they're teaching, which when a user is created, should be nothing
-        } else{
-            //sets the preferences to not null and makes their classes the one's they're a part of, which should be null
-        }
-//        classes = new ArrayList<>();
     }
 
     public boolean isAdmin() {
@@ -48,20 +36,40 @@ public class User {
 
     public List<Classroom> getClassrooms(ClassroomDAO classroomDAO, RosterDAO rosterDAO) {
         if (role.equalsIgnoreCase("admin")) {
-            return classroomDAO.getAllClassrooms(); // assumes this method exists
+            return classroomDAO.getAllClassrooms();
         } else if (role.equalsIgnoreCase("teacher")) {
             return classroomDAO.getClassroomsByTeacherId(userId);
         } else if (role.equalsIgnoreCase("student")) {
             List<Classroom> result = new ArrayList<>();
             for (Roster roster : rosterDAO.getAllRosters()) {
-                if (roster.getStudentIds().contains(userId)) {
+                if (roster.getStudentId() == userId) {
                     Classroom classroom = classroomDAO.getClassroomById(roster.getClassroomId());
-                    result.add(classroom);
+                    if (classroom != null) {
+                        result.add(classroom);
+                    }
                 }
             }
             return result;
         } else {
             return new ArrayList<>();
         }
+    }
+
+    public boolean joinClassroom(int classroomId, RosterDAO rosterDAO) {
+        //checks only student are joining the class
+        if (!role.equals("student")) {
+            return false;
+        }
+
+        //already enrolled in class
+        for (Roster roster : rosterDAO.getAllRosters()) {
+            if (roster.getStudentId() == userId && roster.getClassroomId() == classroomId) {
+                return false;
+            }
+        }
+
+        Roster newRoster = new Roster(userId, classroomId);
+        rosterDAO.insert(newRoster);
+        return true;
     }
 }
