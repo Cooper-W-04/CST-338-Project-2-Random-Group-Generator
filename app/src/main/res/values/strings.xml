@@ -11,4 +11,5 @@
     <string name="view_your_classrooms">View your Classrooms</string>
     <string name="create_a_new_classroom">Create a new Classroom</string>
     <string name="join_a_classroom">Join a Classroom</string>
+    <string name="edit_the_max_group_size">Edit the max group size</string>
 </resources>
