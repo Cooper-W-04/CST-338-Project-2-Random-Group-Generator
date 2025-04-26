@@ -14,12 +14,14 @@ import java.util.concurrent.Future;
 public class AppRepository {
     private final ClassroomDAO classroomDAO;
     private final UserDAO userDAO;
+    private final RosterDAO rosterDAO;
     private static AppRepository repository;
 
     private AppRepository(Application application){
         AppDatabase db = AppDatabase.getDatabase(application);
         this.classroomDAO = db.classroomDAO();
         this.userDAO = db.userDAO();
+        this.rosterDAO = db.rosterDAO();
     }
 
     public LiveData<User> getUserById(int userId) {
@@ -46,7 +48,7 @@ public class AppRepository {
         try{
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.d("CJW", "Problem getting GymLogRepository, thread error.");
+            Log.d("CJW", "Problem getting AppRepository, thread error.");
         }
         return null;
     }
