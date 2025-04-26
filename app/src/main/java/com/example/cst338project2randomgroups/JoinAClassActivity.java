@@ -55,6 +55,7 @@ public class JoinAClassActivity extends AppCompatActivity {
         // this is because when the app opens up to this page, user has not yet entered anything
         try{
             classID = Integer.parseInt(binding.joinClassroomClassIDInputEditText.getText().toString());
+            Toast.makeText(this, "Got entered ID: " + classID, Toast.LENGTH_SHORT).show();
         } catch (NumberFormatException e) {
             Log.d(TAG, "Error reading value from class id edit text.");
             throw new RuntimeException(e);
