@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cst338project2randomgroups.database.AppRepository;
+import com.example.cst338project2randomgroups.database.entities.User;
 import com.example.cst338project2randomgroups.databinding.ActivityJoinAclassBinding;
 
 public class JoinAClassActivity extends AppCompatActivity {
@@ -23,7 +24,14 @@ public class JoinAClassActivity extends AppCompatActivity {
     private static final String TAG = "ATJ";
 
 
-    int classID;
+    //the class the student wants to join
+    private int classID;
+
+    //the id of the student who clicked the "Join A Classroom" button
+    private int studentId;
+
+    //to store the student information
+    private User user;
 
 
 
@@ -34,18 +42,53 @@ public class JoinAClassActivity extends AppCompatActivity {
         binding = ActivityJoinAclassBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //recognize the student user here --> aka the passed in value through intent
+        studentId = getIntent().getIntExtra("STUDENT_ID", -1);
+        repository = AppRepository.getRepository(getApplication());
+
+        //grab logged in student's information from the database
+        //store it ina user object so we can use it later
+        repository.getUserById(studentId).observe(this, user -> {
+            if (user != null) {
+                this.user = user;
+            }
+        });
+
         binding.joinAClassAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getClassroomIdFromEditText();
+                addStudentToClass(); 
 
             }
         });
 
     }
 
-    static Intent joinAClassIntentFactory(Context context) {
-        return new Intent(context, JoinAClassActivity.class);
+    //ToDo: Ensure the student id entered is stored in the roster table.
+    // ToDo: Ensure the joinClassroom() method inside User.java is functioning
+
+    //As of right now Sunday April 27, this method is ALWAYS returning false with the toast message "unable to join"
+    private void addStudentToClass() {
+        //since we are working with live data, we must check if user is a valid object otherwise we will get null pointer exception
+        if(user != null){
+            boolean isAdded = user.joinClassroom(classID, repository.getRosterDAO());
+
+            if(isAdded){
+                Toast.makeText(this, user.getUsername() + " has successfully joined the class!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, user.getUsername() + " has already enrolled or unable to join!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    //when join a classroom page opens up, we have the logged in students ID as that is being passed in
+    //the "Join A Class" button is clicked
+    static Intent joinAClassIntentFactory(Context context, int studentId) {
+        Intent intent =  new Intent(context, JoinAClassActivity.class);
+        intent.putExtra("STUDENT_ID", studentId);
+        return intent;
     }
 
 
@@ -55,11 +98,12 @@ public class JoinAClassActivity extends AppCompatActivity {
         // this is because when the app opens up to this page, user has not yet entered anything
         try{
             classID = Integer.parseInt(binding.joinClassroomClassIDInputEditText.getText().toString());
-            Toast.makeText(this, "Got entered ID: " + classID, Toast.LENGTH_SHORT).show();
         } catch (NumberFormatException e) {
             Log.d(TAG, "Error reading value from class id edit text.");
             throw new RuntimeException(e);
         }
+
+
 
     }
 }

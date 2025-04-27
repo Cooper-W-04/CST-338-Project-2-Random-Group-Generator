@@ -52,4 +52,9 @@ public class AppRepository {
         }
         return null;
     }
+
+    public RosterDAO getRosterDAO() {
+        return rosterDAO;
+    }
+
 }

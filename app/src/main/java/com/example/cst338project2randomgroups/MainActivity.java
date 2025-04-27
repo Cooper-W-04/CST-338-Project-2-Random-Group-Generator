@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             binding.joinClassroom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = JoinAClassActivity.joinAClassIntentFactory(getApplicationContext());
+                    Intent intent = JoinAClassActivity.joinAClassIntentFactory(getApplicationContext(), loggedInUserId);
                     startActivity(intent);
                 }
             });
