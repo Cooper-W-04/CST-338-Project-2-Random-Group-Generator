@@ -117,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            binding.viewEnrolledClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+
+                }
+            });
+
         }
     }
 
