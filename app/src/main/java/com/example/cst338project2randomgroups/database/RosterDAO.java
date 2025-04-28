@@ -19,8 +19,8 @@ public interface RosterDAO {
     @Query("SELECT * FROM rosters WHERE rosterId = :rosterId LIMIT 1")
     Roster getRosterById(int rosterId);
 
-    @Query("SELECT * FROM rosters WHERE classroomId = :classroomId LIMIT 1")
-    Roster getRosterByClassroomId(int classroomId);
+    @Query("SELECT * FROM rosters WHERE classroomId = :classroomId")
+    List<Roster> getAllRostersByClassroomId(int classroomId);
 
     @Query("SELECT * FROM rosters")
     List<Roster> getAllRosters();

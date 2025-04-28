@@ -6,11 +6,13 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.cst338project2randomgroups.database.GroupDAO;
 import com.example.cst338project2randomgroups.database.RosterDAO;
 import com.example.cst338project2randomgroups.database.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity(tableName = "classrooms",
         foreignKeys = {
@@ -25,14 +27,43 @@ public class Classroom {
     private int classroomId;
     private int teacherId;
     private String className;
+    private boolean groupsCreated = false;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
     }
 
-    public void createGroups(int size){
-        //TODO: make code to see how many groups need to be made, also the rest of the method
+    public void createGroups(int size, RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
+        List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
+        int groupNum = ((roster.size())/size) + 1;
+        int peopleInGroups = 0;
+        for(int i = 0; i<groupNum; i++){
+            for(int k = 0; k < size; k++){
+                if(peopleInGroups == roster.size()){
+                    break;
+                }
+                User randomKid = getRandomStudentFromClass(rosterDao, userDao);
+
+                //TODO: use logic to see if the user is in a group in the classroom, and if it is, get a different random student
+
+                Group group = new Group(classroomId, randomKid.getUserId(), size);
+                groupDao.insert(group);
+                peopleInGroups++;
+            }
+        }
+        groupsCreated = true;
+    }
+
+    public User getRandomStudentFromClass(RosterDAO rosterDao, UserDAO userDao){
+        List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
+        Random random = new Random();
+        int rosterNum = random.nextInt(roster.size());
+        return userDao.getUserById(roster.get(rosterNum).getStudentId()).getValue();
+    }
+
+    public void fillGroup(){
+        if()
     }
 
     public int getTeacherId() {
@@ -61,6 +92,14 @@ public class Classroom {
 
     public User getTeacher(UserDAO userDAO) {
         return userDAO.getUserById(teacherId).getValue();
+    }
+
+    public boolean isGroupsCreated() {
+        return groupsCreated;
+    }
+
+    public void setGroupsCreated(boolean groupsCreated) {
+        this.groupsCreated = groupsCreated;
     }
 
     public List<User> getStudents(UserDAO userDAO, RosterDAO rosterDAO) {

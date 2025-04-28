@@ -2,12 +2,12 @@ package com.example.cst338project2randomgroups.database.entities;
 
 public class Group {
     private int groupId;
-    private int rosterId;
+    private int classroomId;
     private int studentId;
     private int groupSize;
 
-    public Group(int rosterId, int studentId, int groupSize){
-        this.rosterId = rosterId;
+    public Group(int classroomId, int studentId, int groupSize){
+        this.classroomId = classroomId;
         this.studentId = studentId;
         this.groupSize = groupSize;
     }
@@ -20,12 +20,12 @@ public class Group {
         this.groupId = groupId;
     }
 
-    public int getRosterId() {
-        return rosterId;
+    public int getClassroomId() {
+        return classroomId;
     }
 
     public void setRosterId(int rosterId) {
-        this.rosterId = rosterId;
+        this.classroomId = rosterId;
     }
 
     public int getStudentId() {
