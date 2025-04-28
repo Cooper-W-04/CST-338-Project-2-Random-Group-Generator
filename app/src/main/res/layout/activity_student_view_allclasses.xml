@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fce5cd"
     tools:context=".StudentViewALLClassesActivity">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_height="117dp"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:text="All Classes For "
+        android:text="All Classes for "
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +29,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="#f6e586"
+        app:cardBackgroundColor="#ffd966"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
         app:layout_constraintTop_toBottomOf="@id/titleViewALLClassesTextView"
@@ -57,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:text="View Class"
-                android:backgroundTint="#ADD8E6"
+                android:backgroundTint="#a2c4c9"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -79,7 +80,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="#f6e586"
+        app:cardBackgroundColor="#ffd966"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
         app:layout_constraintTop_toBottomOf="@id/studentClass1CardView"
@@ -111,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:text="View Class"
-                android:backgroundTint="#ADD8E6"
+                android:backgroundTint="#a2c4c9"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -135,7 +136,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="#f6e586"
+        app:cardBackgroundColor="#ffd966"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
         app:layout_constraintTop_toBottomOf="@id/studentClass2CardView"
@@ -167,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:text="View Class"
-                android:backgroundTint="#ADD8E6"
+                android:backgroundTint="#a2c4c9"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -177,7 +178,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-
+    <Button
+        android:id="@+id/goBackStudentLandingPageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Go Back"
+        android:backgroundTint="#a2c4c9"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/studentClass3CardView"
+        app:layout_constraintVertical_bias="0.879" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

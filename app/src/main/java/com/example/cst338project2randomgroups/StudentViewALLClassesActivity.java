@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,14 @@ public class StudentViewALLClassesActivity extends AppCompatActivity {
             if (user != null) {
                 this.user = user;
                 binding.titleViewALLClassesTextView.setText("All Classes for " + user.getUsername());
+            }
+        });
+
+        binding.goBackStudentLandingPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId());
+                startActivity(intent);
             }
         });
 
