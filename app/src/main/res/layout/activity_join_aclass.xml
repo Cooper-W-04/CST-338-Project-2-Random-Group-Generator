@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fce5cd"
     tools:context=".JoinAClassActivity">
 
     <TextView
@@ -12,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dip"
         android:layout_margin="16dip"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="156dp"
+        android:textStyle="bold"
         android:gravity="center"
         android:text="@string/enter_class_id"
         android:textSize="40sp"
@@ -39,9 +41,24 @@
         android:layout_marginTop="5dp"
         android:text="@string/add_me"
         android:textSize="30sp"
+        android:backgroundTint="#a2c4c9"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinClassroomClassIDInputEditText" />
+
+    <Button
+        android:id="@+id/goBackStudentLandingPageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Go Back"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/joinAClassAddButton"
+        app:layout_constraintVertical_bias="0.879" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
