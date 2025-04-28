@@ -43,9 +43,9 @@ public class Classroom {
                 if(peopleInGroups == roster.size()){
                     break;
                 }
-                User randomKid = getRandomStudentFromClass(rosterDao, userDao);
+                User randomKid = getRandomStudentFromClass(rosterDao, userDao, groupDao);
 
-                //TODO: use logic to see if the user is in a group in the classroom, and if it is, get a different random student
+
 
                 Group group = new Group(classroomId, randomKid.getUserId(), size);
                 groupDao.insert(group);
@@ -55,11 +55,20 @@ public class Classroom {
         groupsCreated = true;
     }
 
-    public User getRandomStudentFromClass(RosterDAO rosterDao, UserDAO userDao){
+    public User getRandomStudentFromClass(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
         List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
         Random random = new Random();
         int rosterNum = random.nextInt(roster.size());
-        return userDao.getUserById(roster.get(rosterNum).getStudentId()).getValue();
+        User tempKid = userDao.getUserById(roster.get(rosterNum).getStudentId()).getValue();
+        if(userInGroup(tempKid, groupDao)){
+            getRandomStudentFromClass(rosterDao, userDao, groupDao);
+        }
+        return tempKid;
+    }
+
+    public boolean userInGroup(User user, GroupDAO groupDao){
+        //TODO: this logic
+        return true;
     }
 
     public int getTeacherId() {
