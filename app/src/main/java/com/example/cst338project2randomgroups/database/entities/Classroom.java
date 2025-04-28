@@ -62,10 +62,6 @@ public class Classroom {
         return userDao.getUserById(roster.get(rosterNum).getStudentId()).getValue();
     }
 
-    public void fillGroup(){
-        if()
-    }
-
     public int getTeacherId() {
         return teacherId;
     }
