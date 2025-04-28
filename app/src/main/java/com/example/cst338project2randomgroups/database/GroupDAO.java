@@ -5,7 +5,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.cst338project2randomgroups.database.entities.Group;
-import com.example.cst338project2randomgroups.database.entities.Roster;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface GroupDAO {
     void insert(Group group);
 
     @Query("SELECT * FROM rosters WHERE classroomId = :classroomId")
-    List<Roster> getAllGroupsByClassroomId(int classroomId);
+    List<Group> getAllGroupsByClassroomId(int classroomId);
 }

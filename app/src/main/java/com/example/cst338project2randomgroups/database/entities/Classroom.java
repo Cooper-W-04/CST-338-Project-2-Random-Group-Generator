@@ -43,9 +43,7 @@ public class Classroom {
                 if(peopleInGroups == roster.size()){
                     break;
                 }
-                User randomKid = getRandomStudentFromClass(rosterDao, userDao, groupDao);
-
-
+                User randomKid = getRandomStudentFromClassForGroups(rosterDao, userDao, groupDao);
 
                 Group group = new Group(classroomId, randomKid.getUserId(), size);
                 groupDao.insert(group);
@@ -55,20 +53,27 @@ public class Classroom {
         groupsCreated = true;
     }
 
-    public User getRandomStudentFromClass(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
+    public User getRandomStudentFromClassForGroups(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
         List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
         Random random = new Random();
         int rosterNum = random.nextInt(roster.size());
         User tempKid = userDao.getUserById(roster.get(rosterNum).getStudentId()).getValue();
-        if(userInGroup(tempKid, groupDao)){
-            getRandomStudentFromClass(rosterDao, userDao, groupDao);
+        if(userInGroup(tempKid, groupDao, userDao)){
+            getRandomStudentFromClassForGroups(rosterDao, userDao, groupDao);
         }
         return tempKid;
     }
 
-    public boolean userInGroup(User user, GroupDAO groupDao){
-        //TODO: this logic
-        return true;
+    public boolean userInGroup(User user, GroupDAO groupDao, UserDAO userDao){
+        List<Group> groups = groupDao.getAllGroupsByClassroomId(classroomId);
+        List<User> kidsInGroups = new ArrayList<>();
+        for(Group group : groups){
+            kidsInGroups.add(userDao.getUserById(group.getStudentId()).getValue());
+        }
+        if(kidsInGroups.contains(user)){
+            return true;
+        }
+        return false;
     }
 
     public int getTeacherId() {
