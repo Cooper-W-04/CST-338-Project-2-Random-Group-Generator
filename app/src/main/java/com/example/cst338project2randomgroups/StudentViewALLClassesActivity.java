@@ -57,6 +57,32 @@ public class StudentViewALLClassesActivity extends AppCompatActivity {
             }
         });
 
+        binding.studentViewClass1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
+                startActivity(intent);
+            }
+        });
+
+        binding.studentViewClass2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
+                startActivity(intent);
+            }
+        });
+
+        binding.studentViewClass3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
     static Intent studentViewALLClassesIntentFactory(Context context, int studentId){
