@@ -63,6 +63,14 @@ public class JoinAClassActivity extends AppCompatActivity {
             }
         });
 
+        binding.goBackStudentLandingPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId());
+                startActivity(intent);
+            }
+        });
+
     }
 
     //ToDo: Ensure the student id entered is stored in the roster table.
