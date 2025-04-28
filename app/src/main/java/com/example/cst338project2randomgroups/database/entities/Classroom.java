@@ -1,5 +1,3 @@
-//TODO: make more interactions between classroom and user for features
-//TODO: make all the features that need to be made, this is how it is because of timing
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
@@ -36,16 +34,19 @@ public class Classroom {
 
     public void createGroups(int size, RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
         List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
-        int groupNum = ((roster.size())/size) + 1;
+        int totalStudents = roster.size();
+        int groupNum = (totalStudents + size - 1) / size;
         int peopleInGroups = 0;
         for(int i = 0; i<groupNum; i++){
             for(int k = 0; k < size; k++){
-                if(peopleInGroups == roster.size()){
+                if(peopleInGroups == totalStudents){
                     break;
                 }
                 User randomKid = getRandomStudentFromClassForGroups(rosterDao, userDao, groupDao);
-
-                Group group = new Group(classroomId, randomKid.getUserId(), size);
+                if (randomKid == null) {
+                    break;
+                }
+                Group group = new Group(classroomId, randomKid.getUserId(), size, i);
                 groupDao.insert(group);
                 peopleInGroups++;
             }
@@ -53,15 +54,20 @@ public class Classroom {
         groupsCreated = true;
     }
 
-    public User getRandomStudentFromClassForGroups(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
+    public User getRandomStudentFromClassForGroups(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao) {
         List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
-        Random random = new Random();
-        int rosterNum = random.nextInt(roster.size());
-        User tempKid = userDao.getUserById(roster.get(rosterNum).getStudentId()).getValue();
-        if(userInGroup(tempKid, groupDao, userDao)){
-            getRandomStudentFromClassForGroups(rosterDao, userDao, groupDao);
+        List<User> availableStudents = new ArrayList<>();
+        for (Roster r : roster) {
+            User student = userDao.getUserById(r.getStudentId()).getValue();
+            if (student != null && !userInGroup(student, groupDao, userDao)) {
+                availableStudents.add(student);
+            }
         }
-        return tempKid;
+        if (availableStudents.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        return availableStudents.get(random.nextInt(availableStudents.size()));
     }
 
     public boolean userInGroup(User user, GroupDAO groupDao, UserDAO userDao){

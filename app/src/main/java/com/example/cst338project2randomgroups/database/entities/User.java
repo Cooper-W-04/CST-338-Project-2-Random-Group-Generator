@@ -1,4 +1,3 @@
-//TODO: make preferences on a table, have -1 be negative, 1 be positive, and maybe have 0 as neutral
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
@@ -54,15 +53,21 @@ public class User {
         }
     }
 
-    public boolean joinClassroom(int classroomId, RosterDAO rosterDAO) {
-        //checks only student are joining the class
+    public boolean joinClassroom(String classroomName, RosterDAO rosterDAO, ClassroomDAO classroomDao) {
         if (!role.equals("student")) {
             return false;
         }
 
-        //already enrolled in class
-        for (Roster roster : rosterDAO.getAllRosters()) {
-            if (roster.getStudentId() == userId && roster.getClassroomId() == classroomId) {
+        Classroom classroom = classroomDao.getClassroomByName(classroomName);
+        if (classroom == null) {
+            return false;
+        }
+
+        int classroomId = classroom.getClassroomId();
+        List<Roster> rostersInClass = rosterDAO.getAllRostersByClassroomId(classroomId);
+
+        for (Roster roster : rostersInClass) {
+            if (roster.getStudentId() == userId) {
                 return false;
             }
         }
