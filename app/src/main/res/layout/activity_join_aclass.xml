@@ -41,7 +41,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/add_me"
         android:textSize="30sp"
-        android:backgroundTint="#a2c4c9"
+        android:backgroundTint="#f9a54e"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,13 +52,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:backgroundTint="#adadad"
         android:text="Go Back"
-        android:backgroundTint="#f9a54e"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/joinAClassAddButton"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="0.906" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
