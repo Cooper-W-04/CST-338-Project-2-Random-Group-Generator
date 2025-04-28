@@ -1,16 +1,16 @@
-//TODO: make more interactions between classroom and user for features
-//TODO: make all the features that need to be made, this is how it is because of timing
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.cst338project2randomgroups.database.GroupDAO;
 import com.example.cst338project2randomgroups.database.RosterDAO;
 import com.example.cst338project2randomgroups.database.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity(tableName = "classrooms",
         foreignKeys = {
@@ -25,14 +25,61 @@ public class Classroom {
     private int classroomId;
     private int teacherId;
     private String className;
+    private boolean groupsCreated = false;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
     }
 
-    public void createGroups(int size){
-        //TODO: make code to see how many groups need to be made, also the rest of the method
+    public void createGroups(int size, RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
+        List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
+        int totalStudents = roster.size();
+        int groupNum = (totalStudents + size - 1) / size;
+        int peopleInGroups = 0;
+        for(int i = 0; i<groupNum; i++){
+            for(int k = 0; k < size; k++){
+                if(peopleInGroups == totalStudents){
+                    break;
+                }
+                User randomKid = getRandomStudentFromClassForGroups(rosterDao, userDao, groupDao);
+                if (randomKid == null) {
+                    break;
+                }
+                Group group = new Group(classroomId, randomKid.getUserId(), size, i);
+                groupDao.insert(group);
+                peopleInGroups++;
+            }
+        }
+        groupsCreated = true;
+    }
+
+    public User getRandomStudentFromClassForGroups(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao) {
+        List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
+        List<User> availableStudents = new ArrayList<>();
+        for (Roster r : roster) {
+            User student = userDao.getUserById(r.getStudentId()).getValue();
+            if (student != null && !userInGroup(student, groupDao, userDao)) {
+                availableStudents.add(student);
+            }
+        }
+        if (availableStudents.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        return availableStudents.get(random.nextInt(availableStudents.size()));
+    }
+
+    public boolean userInGroup(User user, GroupDAO groupDao, UserDAO userDao){
+        List<Group> groups = groupDao.getAllGroupsByClassroomId(classroomId);
+        List<User> kidsInGroups = new ArrayList<>();
+        for(Group group : groups){
+            kidsInGroups.add(userDao.getUserById(group.getStudentId()).getValue());
+        }
+        if(kidsInGroups.contains(user)){
+            return true;
+        }
+        return false;
     }
 
     public int getTeacherId() {
@@ -61,6 +108,14 @@ public class Classroom {
 
     public User getTeacher(UserDAO userDAO) {
         return userDAO.getUserById(teacherId).getValue();
+    }
+
+    public boolean isGroupsCreated() {
+        return groupsCreated;
+    }
+
+    public void setGroupsCreated(boolean groupsCreated) {
+        this.groupsCreated = groupsCreated;
     }
 
     public List<User> getStudents(UserDAO userDAO, RosterDAO rosterDAO) {
