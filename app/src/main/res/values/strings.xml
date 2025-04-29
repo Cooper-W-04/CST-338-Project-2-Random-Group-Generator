@@ -14,5 +14,11 @@
     <string name="create_a_new_classroom">Create a new Classroom</string>
     <string name="join_a_classroom">Join a Classroom</string>
     <string name="teacher">Teacher</string>
-    <string name="sign_up_top_text">Sign Up</string>
+    <string name="student">Student</string>
+    <string name="sign_up_top_text">Sign Up As A:</string>
+    <string name="roleDisplay" />
+    <string name="enter_your_new_username">Enter your new username</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="sign_up_now">Sign Up Now!</string>
 </resources>
