@@ -13,4 +13,6 @@
     <string name="view_your_classrooms">View your Classrooms</string>
     <string name="create_a_new_classroom">Create a new Classroom</string>
     <string name="join_a_classroom">Join a Classroom</string>
+    <string name="teacher">Teacher</string>
+    <string name="sign_up_top_text">Sign Up</string>
 </resources>
