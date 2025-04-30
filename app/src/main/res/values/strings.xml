@@ -22,5 +22,7 @@
     <string name="sign_up_now">Sign Up Now!</string>
     <string name="edit_the_max_group_size">Edit the max group size</string>
     <string name="enter_new_admin_user">Enter new Admin User</string>
+    <string name="enter_new_admin_password">Enter new Admin password</string>
+    <string name="add">Add</string>
 
 </resources>
