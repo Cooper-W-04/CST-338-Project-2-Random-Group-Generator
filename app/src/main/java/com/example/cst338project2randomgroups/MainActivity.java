@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.GONE);
             binding.viewEnrolledClasses.setVisibility(View.GONE);
             binding.joinClassroom.setVisibility(View.GONE);
+            binding.editMaxGroupSize.setVisibility(View.VISIBLE);
         } else if(user.getRole().equalsIgnoreCase("Teacher")){
             binding.viewAllClasses.setVisibility(View.GONE);
             binding.createAdmin.setVisibility(View.GONE);

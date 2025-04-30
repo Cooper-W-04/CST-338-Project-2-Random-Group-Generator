@@ -4,15 +4,14 @@
     <string name="password">Password</string>
     <string name="login">Login!</string>
     <string name="sign_up">Sign Up</string>
-    <string name="welclome">Welclome!</string>
     <string name="welcome">Welcome!</string>
-    <string name="welcome_admin">Welcome Admin!</string>
     <string name="log_out">Log Out</string>
     <string name="view_all_classrooms">View all Classrooms</string>
     <string name="create_another_admin">Create another Admin</string>
     <string name="view_your_classrooms">View your Classrooms</string>
     <string name="create_a_new_classroom">Create a new Classroom</string>
     <string name="join_a_classroom">Join a Classroom</string>
+
     <string name="teacher">Teacher</string>
     <string name="student">Student</string>
     <string name="sign_up_top_text">Sign Up As A:</string>
@@ -21,4 +20,6 @@
     <string name="enter_your_new_password">Enter your new password</string>
     <string name="confirm_your_password">Confirm your password</string>
     <string name="sign_up_now">Sign Up Now!</string>
+    <string name="edit_the_max_group_size">Edit the max group size</string>
+
 </resources>
