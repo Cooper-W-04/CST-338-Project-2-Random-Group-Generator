@@ -76,4 +76,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDAO userDAO();
 
     public abstract RosterDAO rosterDAO();
+
+    public abstract GroupDAO groupDAO();
 }
