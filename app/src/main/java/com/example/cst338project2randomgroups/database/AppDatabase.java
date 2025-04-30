@@ -24,8 +24,12 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    static AppDatabase getDatabase(final Context context){
+    public static final String TEACHER_ROLE = "teacher";
+    public static final String STUDENT_ROLE = "student";
+
+
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static AppDatabase getDatabase(final Context context){
         if(INSTANCE == null){
             synchronized (AppDatabase.class){
                 if(INSTANCE == null){
@@ -55,10 +59,10 @@ public abstract class AppDatabase extends RoomDatabase {
                 admin.setAdmin(true);
                 dao.insert(admin);
 
-                User student1 = new User("student1", "student1", "student");
+                User student1 = new User("student1", "student1", STUDENT_ROLE);
                 dao.insert(student1);
 
-                User teacher1 = new User("teacher1", "teacher1", "teacher");
+                User teacher1 = new User("teacher1", "teacher1", TEACHER_ROLE);
                 dao.insert(teacher1);
             });
         }
