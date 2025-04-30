@@ -64,6 +64,15 @@ public class StudentViewSELECTEDClassActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        binding.modifyPreferencesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = StudentPreferencesActivity.studentPreferencesIntentFactory(getApplicationContext(), user.getUserId());
+                startActivity(intent);
+
+            }
+        });
     }
 
     static Intent studentViewSELECTEDClassesIntentFactory(Context context, int studentId){
