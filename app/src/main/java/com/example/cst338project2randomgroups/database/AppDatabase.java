@@ -28,6 +28,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String TEACHER_ROLE = "teacher";
     public static final String STUDENT_ROLE = "student";
 
+    public static final String ADMIN_ROLE = "admin";
+
 
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     public static AppDatabase getDatabase(final Context context){
@@ -56,7 +58,7 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 UserDAO dao = INSTANCE.userDAO();
                 dao.deleteAll();
-                User admin = new User("admin1", "admin1", "Admin");
+                User admin = new User("admin1", "admin1", ADMIN_ROLE);
                 admin.setAdmin(true);
                 dao.insert(admin);
 
