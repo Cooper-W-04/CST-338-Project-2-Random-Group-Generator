@@ -24,6 +24,14 @@ public class AppRepository {
         this.rosterDAO = db.rosterDAO();
     }
 
+    public void insertUser(User user) {
+        AppDatabase.databaseWriteExecutor.execute(() ->
+                {
+                    userDAO.insert(user);
+                }
+        );
+    }
+
     public LiveData<User> getUserById(int userId) {
         return userDAO.getUserById(userId);
     }

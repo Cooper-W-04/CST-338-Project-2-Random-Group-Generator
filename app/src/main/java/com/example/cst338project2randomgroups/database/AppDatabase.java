@@ -60,7 +60,6 @@ public abstract class AppDatabase extends RoomDatabase {
                 admin.setAdmin(true);
                 dao.insert(admin);
 
-
                 User student1 = new User("student1", "student1", STUDENT_ROLE);
                 dao.insert(student1);
 

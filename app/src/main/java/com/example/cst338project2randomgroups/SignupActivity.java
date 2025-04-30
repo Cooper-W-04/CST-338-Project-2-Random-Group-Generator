@@ -94,12 +94,12 @@ public class SignupActivity extends AppCompatActivity {
     private void addUser(String username,String password, String role){
         User newUser = new User(username, password, role);
         //dao.insert(newUser);
-        Log.v("RHH",Integer.toString(newUser.getUserId()));
         toastMaker(String.format("Welcome %s",username));
         AppDatabase.databaseWriteExecutor.execute(()->{
            AppDatabase db = AppDatabase.getDatabase(this);
-           db.userDAO().insert(newUser);
-           startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUser.getUserId()));
+           repository.insertUser(newUser);
+           startActivity(LoginActivity.loginIntentFactory(this));
+           //startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUserID));
         });
     }
 }
