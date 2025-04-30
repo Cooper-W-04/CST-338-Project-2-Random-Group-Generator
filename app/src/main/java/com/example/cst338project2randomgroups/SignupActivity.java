@@ -99,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
         AppDatabase.databaseWriteExecutor.execute(()->{
            AppDatabase db = AppDatabase.getDatabase(this);
            db.userDAO().insert(newUser);
-           //startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUser.getUserId()));
+           startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUser.getUserId()));
         });
     }
 }
