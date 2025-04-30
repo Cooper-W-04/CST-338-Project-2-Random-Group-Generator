@@ -35,6 +35,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signUpUser();
+            }
+        });
+
 
     }
 
@@ -60,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
                 binding.userNameLoginEditText.setSelection(0);
             }
         });
+    }
+
+    private void signUpUser(){
+        Intent intent = SignupActivity.SignupActivityIntentFactory(getApplicationContext());
+        startActivity(intent);
     }
 
     private void toastMaker(String message) {
