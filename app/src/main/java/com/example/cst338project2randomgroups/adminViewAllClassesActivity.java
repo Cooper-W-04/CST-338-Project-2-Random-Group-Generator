@@ -1,5 +1,6 @@
 package com.example.cst338project2randomgroups;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,10 @@ public class adminViewAllClassesActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    static Intent adminAllClasssesIntentFactory(Context context){
+        return new Intent(context, adminViewAllClassesActivity.class);
     }
 
 }
