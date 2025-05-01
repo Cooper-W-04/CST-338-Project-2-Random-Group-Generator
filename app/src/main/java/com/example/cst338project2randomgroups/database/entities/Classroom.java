@@ -26,60 +26,11 @@ public class Classroom {
     private int teacherId;
     private String className;
     private boolean groupsCreated = false;
+    private int groupSize = 0;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
-    }
-
-    public void createGroups(int size, RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao){
-        List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
-        int totalStudents = roster.size();
-        int groupNum = (totalStudents + size - 1) / size;
-        int peopleInGroups = 0;
-        for(int i = 0; i<groupNum; i++){
-            for(int k = 0; k < size; k++){
-                if(peopleInGroups == totalStudents){
-                    break;
-                }
-                User randomKid = getRandomStudentFromClassForGroups(rosterDao, userDao, groupDao);
-                if (randomKid == null) {
-                    break;
-                }
-                Group group = new Group(classroomId, randomKid.getUserId(), size, i);
-                groupDao.insert(group);
-                peopleInGroups++;
-            }
-        }
-        groupsCreated = true;
-    }
-
-    public User getRandomStudentFromClassForGroups(RosterDAO rosterDao, UserDAO userDao, GroupDAO groupDao) {
-        List<Roster> roster = rosterDao.getAllRostersByClassroomId(classroomId);
-        List<User> availableStudents = new ArrayList<>();
-        for (Roster r : roster) {
-            User student = userDao.getUserById(r.getStudentId()).getValue();
-            if (student != null && !userInGroup(student, groupDao, userDao)) {
-                availableStudents.add(student);
-            }
-        }
-        if (availableStudents.isEmpty()) {
-            return null;
-        }
-        Random random = new Random();
-        return availableStudents.get(random.nextInt(availableStudents.size()));
-    }
-
-    public boolean userInGroup(User user, GroupDAO groupDao, UserDAO userDao){
-        List<Group> groups = groupDao.getAllGroupsByClassroomId(classroomId);
-        List<User> kidsInGroups = new ArrayList<>();
-        for(Group group : groups){
-            kidsInGroups.add(userDao.getUserById(group.getStudentId()).getValue());
-        }
-        if(kidsInGroups.contains(user)){
-            return true;
-        }
-        return false;
     }
 
     public int getTeacherId() {
@@ -118,16 +69,11 @@ public class Classroom {
         this.groupsCreated = groupsCreated;
     }
 
-    public List<User> getStudents(UserDAO userDAO, RosterDAO rosterDAO) {
-        List<User> students = new ArrayList<>();
-        for (Roster roster : rosterDAO.getAllRosters()) {
-            if (roster.getClassroomId() == classroomId) {
-                User student = userDAO.getUserById(roster.getStudentId()).getValue();
-                if (student != null && student.getRole().equalsIgnoreCase("student")) {
-                    students.add(student);
-                }
-            }
-        }
-        return students;
+    public int getGroupSize() {
+        return groupSize;
+    }
+
+    public void setGroupSize(int groupSize) {
+        this.groupSize = groupSize;
     }
 }
