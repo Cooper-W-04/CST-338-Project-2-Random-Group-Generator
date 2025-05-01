@@ -80,7 +80,11 @@ public class JoinAClassActivity extends AppCompatActivity {
     private void addStudentToClass() {
         //since we are working with live data, we must check if user is a valid object otherwise we will get null pointer exception
         if(user != null){
-            boolean isAdded = user.joinClassroom(classID, repository.getRosterDAO());
+
+            //I AM WORKING ON GETTING THIS BUTTON TO WORK WITH DR.C
+            //WILL HAVE IT FIXED BY TOMORROW EVENING SO WILL BE SENDING ANOTHER PULL REQUEST...
+            //...WITH "Add Me" BUTTON FUNCTIONING (hopefully...)
+            boolean isAdded = false;
 
             if(isAdded){
                 Toast.makeText(this, user.getUsername() + " has successfully joined the class!", Toast.LENGTH_SHORT).show();
