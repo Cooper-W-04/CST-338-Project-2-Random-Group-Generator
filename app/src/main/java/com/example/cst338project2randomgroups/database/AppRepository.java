@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.example.cst338project2randomgroups.database.entities.Classroom;
 import com.example.cst338project2randomgroups.database.entities.Group;
@@ -133,28 +134,45 @@ public class AppRepository {
     }
 
     //user methods
-    public List<Classroom> getClassrooms(int userId) {
-        String role = userDAO.getUserById(userId).getValue().getRole();
-        if(role == null){
-            return null;
-        } else if (role.equalsIgnoreCase("admin")) {
-            return classroomDAO.getAllClassrooms();
-        } else if (role.equalsIgnoreCase("teacher")) {
-            return classroomDAO.getClassroomsByTeacherId(userId);
-        } else if (role.equalsIgnoreCase("student")) {
-            List<Classroom> result = new ArrayList<>();
-            for (Roster roster : rosterDAO.getAllRosters()) {
-                if (roster.getStudentId() == userId) {
-                    Classroom classroom = classroomDAO.getClassroomById(roster.getClassroomId());
-                    if (classroom != null) {
-                        result.add(classroom);
-                    }
-                }
+    public LiveData<List<Classroom>> getClassrooms(int userId) {
+        MediatorLiveData<List<Classroom>> result = new MediatorLiveData<>();
+
+        LiveData<User> userLiveData = userDAO.getUserById(userId);
+        result.addSource(userLiveData, user -> {
+            if (user == null || user.getRole() == null) {
+                result.setValue(new ArrayList<>());
+                return;
             }
-            return result;
-        } else {
-            return new ArrayList<>();
-        }
+
+            String role = user.getRole();
+            if (role.equalsIgnoreCase("admin")) {
+                result.addSource(classroomDAO.getAllClassrooms(), result::setValue);
+            } else if (role.equalsIgnoreCase("teacher")) {
+                result.addSource(classroomDAO.getClassroomsByTeacherId(userId), result::setValue);
+            } else if (role.equalsIgnoreCase("student")) {
+                LiveData<List<Roster>> rosterLiveData = rosterDAO.getAllRosters();
+                result.addSource(rosterLiveData, rosters -> {
+                    List<Integer> classIds = new ArrayList<>();
+                    for (Roster roster : rosters) {
+                        if (roster.getStudentId() == userId) {
+                            classIds.add(roster.getClassroomId());
+                        }
+                    }
+
+                    if (classIds.isEmpty()) {
+                        result.setValue(new ArrayList<>());
+                    } else {
+                        // Optionally create this method if not yet in DAO
+                        LiveData<List<Classroom>> studentClasses = classroomDAO.getClassroomsByIds(classIds);
+                        result.addSource(studentClasses, result::setValue);
+                    }
+                });
+            } else {
+                result.setValue(new ArrayList<>());
+            }
+        });
+
+        return result;
     }
 
     public boolean joinClassroomByName(String classroomName, int userId){

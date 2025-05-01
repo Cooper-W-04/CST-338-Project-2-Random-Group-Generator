@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
                     startActivity(intent);
-
                 }
             });
 

@@ -27,7 +27,12 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
         repository = AppRepository.getRepository(getApplication());
 
         authId = getIntent().getIntExtra("AUTH_ID", -1);
-        authClassrooms = repository.getClassrooms(authId);
+        repository.getClassrooms(authId).observe(this, classrooms -> {
+            if (classrooms != null) {
+                authClassrooms = classrooms;
+                // TODO: Update UI with classrooms (e.g., populate RecyclerView)
+            }
+        });
     }
 
     static Intent authorityViewClassroomsIntentFactory(Context context, int authId){
