@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -50,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showLogoutDialog();
+            }
+        });
+
+        Button adminViewClasses = binding.viewAllClasses;
+        adminViewClasses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = adminViewAllClassesActivity.adminAllClasssesIntentFactory(getApplicationContext(), loggedInUserId);
+                startActivity(intent);
             }
         });
     }
@@ -108,6 +118,24 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.GONE);
             binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
             binding.joinClassroom.setVisibility(View.VISIBLE);
+
+            binding.joinClassroom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = JoinAClassActivity.joinAClassIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
+
+            binding.viewEnrolledClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+
+                }
+            });
+
         }
     }
 
@@ -151,5 +179,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
-
 }

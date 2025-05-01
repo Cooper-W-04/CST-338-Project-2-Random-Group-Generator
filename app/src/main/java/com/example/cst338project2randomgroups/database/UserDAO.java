@@ -11,8 +11,10 @@ import com.example.cst338project2randomgroups.database.entities.User;
 
 @Dao
 public interface UserDAO {
+    //returns auto generated userID
+    //change to void if errors come up in here
     @Insert
-    void insert(User user);
+    long insert(User user);
 
     @Query("SELECT * FROM users WHERE userId == :userId LIMIT 1")
     LiveData<User> getUserById(int userId);
