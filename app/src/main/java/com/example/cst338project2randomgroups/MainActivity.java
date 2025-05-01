@@ -108,6 +108,24 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.GONE);
             binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
             binding.joinClassroom.setVisibility(View.VISIBLE);
+
+            binding.joinClassroom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = JoinAClassActivity.joinAClassIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
+
+            binding.viewEnrolledClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+
+                }
+            });
+
         }
     }
 

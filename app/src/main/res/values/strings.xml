@@ -21,5 +21,9 @@
     <string name="confirm_your_password">Confirm your password</string>
     <string name="sign_up_now">Sign Up Now!</string>
     <string name="edit_the_max_group_size">Edit the max group size</string>
+    <string name="welcome_to_groupup">Welcome to GroupUp</string>
+    <string name="enter_class_id">Enter Class ID</string>
+    <string name="enter_class_id_here">enter class id here</string>
+    <string name="add_me">Add Me!</string>
 
 </resources>

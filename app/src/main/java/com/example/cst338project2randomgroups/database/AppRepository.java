@@ -61,6 +61,11 @@ public class AppRepository {
         return null;
     }
 
+    public RosterDAO getRosterDAO() {
+        return rosterDAO;
+    }
+
+
     //classroom methods
     public void createGroups(int groupSize, int classroomId){
         Classroom classroom = classroomDAO.getClassroomById(classroomId);
