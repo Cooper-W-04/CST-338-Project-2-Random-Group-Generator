@@ -25,5 +25,6 @@
     <string name="enter_class_id">Enter Class ID</string>
     <string name="enter_class_id_here">enter class id here</string>
     <string name="add_me">Add Me!</string>
+    <string name="placeholder">placeholder</string>
 
 </resources>
