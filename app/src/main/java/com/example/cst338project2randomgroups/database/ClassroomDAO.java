@@ -16,6 +16,7 @@ public interface ClassroomDAO {
     long insert(Classroom classroom);
 
     @Query("SELECT * FROM classrooms WHERE classroomId == :classroomId LIMIT 1")
+//    @Query("SELECT * FROM " + AppDatabase.CLASSROOM_TABLE + " WHERE classroomId == :classroomId LIMIT 1")
     Classroom getClassroomById(int classroomId);
 
     @Query("SELECT * FROM classrooms WHERE className == :className LIMIT 1")

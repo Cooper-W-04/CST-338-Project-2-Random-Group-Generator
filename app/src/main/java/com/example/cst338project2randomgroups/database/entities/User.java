@@ -54,23 +54,57 @@ public class User {
         }
     }
 
-    public boolean joinClassroom(int classroomId, RosterDAO rosterDAO) {
-        //checks only student are joining the class
-        if (!role.equals("student")) {
-            return false;
-        }
+//    public boolean joinClassroomById(int classroomId, RosterDAO rosterDAO, ClassroomDAO classroomDao) {
+//        //checks only student are joining the class
+//        if (!role.equals("student")) {
+//            return false;
+//        }
+//
+//        //classroom does not exist
+//        Classroom classroom = classroomDao.getClassroomById(classroomId);
+//        if (classroom == null) {
+//            return false;
+//        }
+//
+//        //check if student is already in class
+//        List<Roster> rostersInClass = rosterDAO.getAllRostersByClassroomId(classroomId);
+//        for (Roster roster : rostersInClass) {
+//            if (roster.getStudentId() == userId) {
+//                return false;
+//            }
+//        }
+//
+//
+//        Roster newRoster = new Roster(userId, classroomId);
+//        rosterDAO.insert(newRoster);
+//        return true;
+//
+//    }
 
-        //already enrolled in class
-        for (Roster roster : rosterDAO.getAllRosters()) {
-            if (roster.getStudentId() == userId && roster.getClassroomId() == classroomId) {
-                return false;
-            }
-        }
+//    public boolean joinClassroomByName(String classroomName, RosterDAO rosterDAO, ClassroomDAO classroomDao) {
+//        if (!role.equals("student")) {
+//            return false;
+//        }
+//
+//        Classroom classroom = classroomDao.getClassroomByName(classroomName);
+//        if (classroom == null) {
+//            return false;
+//        }
+//
+//        int classroomId = classroom.getClassroomId();
+//        List<Roster> rostersInClass = rosterDAO.getAllRostersByClassroomId(classroomId);
+//
+//        for (Roster roster : rostersInClass) {
+//            if (roster.getStudentId() == userId) {
+//                return false;
+//            }
+//        }
+//
+//        Roster newRoster = new Roster(userId, classroomId);
+//        rosterDAO.insert(newRoster);
+//        return true;
+//    }
 
-        Roster newRoster = new Roster(userId, classroomId);
-        rosterDAO.insert(newRoster);
-        return true;
-    }
 
     public String getUsername() {
         return username;

@@ -19,13 +19,14 @@ public class JoinAClassActivity extends AppCompatActivity {
 
     //so i can access database
     private AppRepository repository;
-
     //ATJ= ann treasa jojo
     private static final String TAG = "ATJ";
 
 
     //the class the student wants to join
     private int classID;
+
+    private String className;
 
     //the id of the student who clicked the "Join A Classroom" button
     private int studentId;
@@ -57,6 +58,7 @@ public class JoinAClassActivity extends AppCompatActivity {
         binding.joinAClassAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("JoinClass", "Join button clicked");
                 getClassroomIdFromEditText();
                 addStudentToClass(); 
 
@@ -78,16 +80,26 @@ public class JoinAClassActivity extends AppCompatActivity {
 
     //As of right now Sunday April 27, this method is ALWAYS returning false with the toast message "unable to join"
     private void addStudentToClass() {
+        Log.d("JoinClass", "addStudentToClass() called");
+
+
         //since we are working with live data, we must check if user is a valid object otherwise we will get null pointer exception
         if(user != null){
-            boolean isAdded = user.joinClassroom(classID, repository.getRosterDAO());
+            Log.d("JoinClass", "User is not null: " + user.getUsername());
+
+
+            //calling adding student to roster table method in repository
+            boolean isAdded = repository.joinClassroomById(classID, user);
+            Log.d("JoinClass", "joinClassroomById returned: " + isAdded);
 
             if(isAdded){
                 Toast.makeText(this, user.getUsername() + " has successfully joined the class!", Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(this, user.getUsername() + " has already enrolled or unable to join!", Toast.LENGTH_SHORT).show();
             }
-        }
+        } else {
+        Toast.makeText(this, "User not loaded yet!", Toast.LENGTH_SHORT).show();
+    }
     }
 
 
@@ -106,6 +118,7 @@ public class JoinAClassActivity extends AppCompatActivity {
         // this is because when the app opens up to this page, user has not yet entered anything
         try{
             classID = Integer.parseInt(binding.joinClassroomClassIDInputEditText.getText().toString());
+            className = binding.joinClassroomClassIDInputEditText.getText().toString();
         } catch (NumberFormatException e) {
             Log.d(TAG, "Error reading value from class id edit text.");
             throw new RuntimeException(e);

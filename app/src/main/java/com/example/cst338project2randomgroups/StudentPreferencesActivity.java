@@ -5,16 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 import com.example.cst338project2randomgroups.database.AppRepository;
 import com.example.cst338project2randomgroups.database.entities.User;
 import com.example.cst338project2randomgroups.databinding.ActivityStudentPreferencesBinding;
-import com.example.cst338project2randomgroups.databinding.ActivityStudentViewAllclassesBinding;
+
 
 public class StudentPreferencesActivity extends AppCompatActivity {
     private ActivityStudentPreferencesBinding binding;

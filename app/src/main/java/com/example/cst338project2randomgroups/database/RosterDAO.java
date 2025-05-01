@@ -35,4 +35,7 @@ public interface RosterDAO {
 
     @Delete
     void deleteRoster(Roster roster);
+
+    @Query("SELECT * FROM rosters WHERE classroomId = :classroomId")
+    List<Roster> getAllRostersByClassroomId(int classroomId);
 }

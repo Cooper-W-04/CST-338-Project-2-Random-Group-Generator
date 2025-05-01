@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
     private static final String DATABASE_NAME = "AppDatabase";
+//    public static final String CLASSROOM_TABLE = "classrooms";
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
