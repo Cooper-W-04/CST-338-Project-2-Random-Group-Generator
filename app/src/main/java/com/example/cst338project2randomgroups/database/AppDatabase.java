@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
     private static final String DATABASE_NAME = "AppDatabase";

@@ -62,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button addAdmin = binding.createAdmin;
+        addAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AddAdminActivity.AddAdminActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
     }
 
     private void loginUser(Bundle savedInstanceState) {

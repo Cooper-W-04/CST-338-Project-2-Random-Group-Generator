@@ -1,5 +1,7 @@
 package com.example.cst338project2randomgroups;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -67,5 +69,9 @@ public class AddAdminActivity extends AppCompatActivity {
 
     private void toastMaker(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    static Intent AddAdminActivityIntentFactory (Context context){
+        return new Intent(context, AddAdminActivity.class);
     }
 }
