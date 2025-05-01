@@ -79,6 +79,8 @@ public class JoinAClassActivity extends AppCompatActivity {
     // ToDo: Ensure the joinClassroom() method inside User.java is functioning
 
     //As of right now Sunday April 27, this method is ALWAYS returning false with the toast message "unable to join"
+
+    //making changes
     private void addStudentToClass() {
         Log.d("JoinClass", "addStudentToClass() called");
 
