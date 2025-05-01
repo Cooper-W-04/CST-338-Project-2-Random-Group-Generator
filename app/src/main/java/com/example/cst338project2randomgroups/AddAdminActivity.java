@@ -1,6 +1,7 @@
 package com.example.cst338project2randomgroups;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -53,6 +54,14 @@ public class AddAdminActivity extends AppCompatActivity {
 
     private void addUser(String usernameInput, String passwordInput, String role) {
         User newAdmin = new User(usernameInput,passwordInput,role);
+        Log.v("MSW", Integer.toString(newAdmin.getUserId()));
+        toastMaker(String.format("Added %s", usernameInput));
+        AppDatabase.databaseWriteExecutor.execute(()->{
+            AppDatabase dtbs = AppDatabase.getDatabase(this);
+            dtbs.userDAO().insert(newAdmin);
+            startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newAdmin.getUserId()));
+
+        });
 
     }
 
