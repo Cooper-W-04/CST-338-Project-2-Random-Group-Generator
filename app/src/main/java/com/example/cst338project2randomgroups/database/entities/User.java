@@ -32,50 +32,6 @@ public class User {
         isAdmin = admin;
     }
 
-    public List<Classroom> getClassrooms(ClassroomDAO classroomDAO, RosterDAO rosterDAO) {
-        if (role.equalsIgnoreCase("admin")) {
-            return classroomDAO.getAllClassrooms();
-        } else if (role.equalsIgnoreCase("teacher")) {
-            return classroomDAO.getClassroomsByTeacherId(userId);
-        } else if (role.equalsIgnoreCase("student")) {
-            List<Classroom> result = new ArrayList<>();
-            for (Roster roster : rosterDAO.getAllRosters()) {
-                if (roster.getStudentId() == userId) {
-                    Classroom classroom = classroomDAO.getClassroomById(roster.getClassroomId());
-                    if (classroom != null) {
-                        result.add(classroom);
-                    }
-                }
-            }
-            return result;
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    public boolean joinClassroom(String classroomName, RosterDAO rosterDAO, ClassroomDAO classroomDao) {
-        if (!role.equals("student")) {
-            return false;
-        }
-
-        Classroom classroom = classroomDao.getClassroomByName(classroomName);
-        if (classroom == null) {
-            return false;
-        }
-
-        int classroomId = classroom.getClassroomId();
-        List<Roster> rostersInClass = rosterDAO.getAllRostersByClassroomId(classroomId);
-
-        for (Roster roster : rostersInClass) {
-            if (roster.getStudentId() == userId) {
-                return false;
-            }
-        }
-
-        Roster newRoster = new Roster(userId, classroomId);
-        rosterDAO.insert(newRoster);
-        return true;
-    }
 
     public String getUsername() {
         return username;

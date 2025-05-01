@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        Button myButton = binding.logOutButton;
-        myButton.setOnClickListener(new View.OnClickListener() {
+        Button logOutButton = binding.logOutButton;
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLogoutDialog();
@@ -118,6 +118,24 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.GONE);
             binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
             binding.joinClassroom.setVisibility(View.VISIBLE);
+
+            binding.joinClassroom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = JoinAClassActivity.joinAClassIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
+
+            binding.viewEnrolledClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+
+                }
+            });
+
         }
     }
 
@@ -161,5 +179,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
-
 }

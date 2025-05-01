@@ -14,7 +14,7 @@
         android:layout_margin="16dip"
         android:layout_marginBottom="24dip"
         android:gravity="center"
-        android:text="welcome to group generator"
+        android:text="@string/welcome_to_groupup"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
