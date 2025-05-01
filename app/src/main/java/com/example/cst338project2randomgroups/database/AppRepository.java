@@ -12,11 +12,13 @@ import com.example.cst338project2randomgroups.database.entities.Roster;
 import com.example.cst338project2randomgroups.database.entities.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AppRepository {
     private final ClassroomDAO classroomDAO;
@@ -68,72 +70,154 @@ public class AppRepository {
 
 
     //classroom methods
-    public void createGroups(int groupSize, int classroomId){
-        Classroom classroom = classroomDAO.getClassroomById(classroomId);
-        classroom.setGroupSize(groupSize);
-        List<Roster> roster = rosterDAO.getAllRostersByClassroomId(classroomId);
-        int totalStudents = roster.size();
-        int groupNum = (totalStudents + groupSize - 1) / groupSize;
-        int peopleInGroups = 0;
-        for(int i = 0; i<groupNum; i++){
-            for(int k = 0; k < groupSize; k++){
-                if(peopleInGroups == totalStudents){
-                    break;
+    public void createGroups(int groupSize, int classroomId) {
+        classroomDAO.getClassroomById(classroomId).observeForever(classroom -> {
+            if (classroom == null) return;
+            classroom.setGroupSize(groupSize);
+            rosterDAO.getAllRostersByClassroomId(classroomId).observeForever(rosters -> {
+                if (rosters == null || rosters.isEmpty()) return;
+
+                int totalStudents = rosters.size();
+                int groupNum = (totalStudents + groupSize - 1) / groupSize;
+                List<Integer> studentIdsAdded = new ArrayList<>();
+                Random random = new Random();
+
+                for (int i = 0; i < groupNum; i++) {
+                    final int groupNumber = i; // copy for lambda
+                    for (int k = 0; k < groupSize; k++) {
+                        getRandomStudentFromClassForGroups(classroomId, studentIdsAdded).observeForever(randomStudent -> {
+                            if (randomStudent == null) return;
+                            Group group = new Group(classroomId, randomStudent.getUserId(), groupSize, groupNumber);
+                            groupDAO.insert(group);
+                            studentIdsAdded.add(randomStudent.getUserId());
+                        });
+                    }
                 }
-                User randomKid = getRandomStudentFromClassForGroups(classroomId);
-                if (randomKid == null) {
-                    break;
+
+                classroom.setGroupsCreated(true);
+                classroomDAO.updateClassroom(classroom);
+            });
+        });
+    }
+
+
+    public LiveData<User> getRandomStudentFromClassForGroups(int classroomId, List<Integer> alreadyUsedIds) {
+        MediatorLiveData<User> result = new MediatorLiveData<>();
+
+        rosterDAO.getAllRostersByClassroomId(classroomId).observeForever(rosters -> {
+            if (rosters == null) {
+                result.setValue(null);
+                return;
+            }
+
+            List<User> validStudents = new ArrayList<>();
+            List<LiveData<User>> userLiveDataList = new ArrayList<>();
+
+            for (Roster r : rosters) {
+                userLiveDataList.add(userDAO.getUserById(r.getStudentId()));
+            }
+
+            MediatorLiveData<List<User>> studentsCollector = new MediatorLiveData<>();
+            List<User> collected = new ArrayList<>();
+            AtomicInteger count = new AtomicInteger();
+
+            for (LiveData<User> userLive : userLiveDataList) {
+                studentsCollector.addSource(userLive, user -> {
+                    if (user != null && !alreadyUsedIds.contains(user.getUserId())) {
+                        collected.add(user);
+                    }
+                    if (count.incrementAndGet() == userLiveDataList.size()) {
+                        if (collected.isEmpty()) {
+                            result.setValue(null);
+                        } else {
+                            Random random = new Random();
+                            result.setValue(collected.get(random.nextInt(collected.size())));
+                        }
+                    }
+                });
+            }
+        });
+
+        return result;
+    }
+
+
+    public LiveData<Boolean> studentInGroup(User user, int classroomId) {
+        MediatorLiveData<Boolean> result = new MediatorLiveData<>();
+
+        groupDAO.getAllGroupsByClassroomId(classroomId).observeForever(groups -> {
+            if (groups != null) {
+                for (Group group : groups) {
+                    if (group.getStudentId() == user.getUserId()) {
+                        result.setValue(true);
+                        return;
+                    }
                 }
-                Group group = new Group(classroomId, randomKid.getUserId(), groupSize, i);
-                groupDAO.insert(group);
-                peopleInGroups++;
             }
-        }
-        classroom.setGroupsCreated(true);
+            result.setValue(false);
+        });
+
+        return result;
     }
 
-    public User getRandomStudentFromClassForGroups(int classroomId) {
-        List<Roster> roster = rosterDAO.getAllRostersByClassroomId(classroomId);
-        List<User> availableStudents = new ArrayList<>();
-        for (Roster r : roster) {
-            User student = userDAO.getUserById(r.getStudentId()).getValue();
-            if (student != null && !studentInGroup(student, classroomId)) {
-                availableStudents.add(student);
-            }
-        }
-        if (availableStudents.isEmpty()) {
-            return null;
-        }
-        Random random = new Random();
-        return availableStudents.get(random.nextInt(availableStudents.size()));
-    }
+    public LiveData<List<User>> getClassroomStudents(int classroomId) {
+        MediatorLiveData<List<User>> result = new MediatorLiveData<>();
 
-    public boolean studentInGroup(User user, int classroomId){
-        List<Group> groups = groupDAO.getAllGroupsByClassroomId(classroomId);
-        List<User> kidsInGroups = new ArrayList<>();
-        for(Group group : groups){
-            kidsInGroups.add(userDAO.getUserById(group.getStudentId()).getValue());
-        }
-        if(kidsInGroups.contains(user)){
-            return true;
-        }
-        return false;
-    }
+        rosterDAO.getAllRosters().observeForever(rosters -> {
+            if (rosters == null) return;
 
-    public List<User> getClassroomStudents(int classroomId) {
-        List<User> students = new ArrayList<>();
-        for (Roster roster : rosterDAO.getAllRosters()) {
-            if (roster.getClassroomId() == classroomId) {
-                User student = userDAO.getUserById(roster.getStudentId()).getValue();
-                if (student != null && student.getRole().equalsIgnoreCase("student")) {
-                    students.add(student);
+            List<Integer> studentIds = new ArrayList<>();
+            for (Roster r : rosters) {
+                if (r.getClassroomId() == classroomId) {
+                    studentIds.add(r.getStudentId());
                 }
             }
-        }
-        return students;
+
+            if (studentIds.isEmpty()) {
+                result.setValue(Collections.emptyList());
+                return;
+            }
+
+            List<User> collected = new ArrayList<>();
+            int total = studentIds.size();
+
+            for (int id : studentIds) {
+                userDAO.getUserById(id).observeForever(user -> {
+                    if (user != null && "student".equalsIgnoreCase(user.getRole())) {
+                        collected.add(user);
+                    }
+
+                    if (collected.size() + (total - studentIds.size()) == total) {
+                        result.setValue(new ArrayList<>(collected));
+                    }
+                });
+            }
+        });
+
+        return result;
     }
 
-    //user methods
+
+    public void joinClassroomByName(String classroomName, int userId) {
+        userDAO.getUserById(userId).observeForever(user -> {
+            if (user == null || !"student".equalsIgnoreCase(user.getRole())) return;
+
+            classroomDAO.getClassroomByName(classroomName).observeForever(classroom -> {
+                if (classroom == null) return;
+
+                int classroomId = classroom.getClassroomId();
+                rosterDAO.getAllRostersByClassroomId(classroomId).observeForever(rosters -> {
+                    for (Roster r : rosters) {
+                        if (r.getStudentId() == userId) return;
+                    }
+
+                    Roster roster = new Roster(userId, classroomId);
+                    rosterDAO.insert(roster);
+                });
+            });
+        });
+    }
+
     public LiveData<List<Classroom>> getClassrooms(int userId) {
         MediatorLiveData<List<Classroom>> result = new MediatorLiveData<>();
 
@@ -173,32 +257,5 @@ public class AppRepository {
         });
 
         return result;
-    }
-
-    public boolean joinClassroomByName(String classroomName, int userId){
-        String role = userDAO.getUserById(userId).getValue().getRole();
-        if(role == null){
-            return false;
-        } else if (!role.equals("student")) {
-            return false;
-        }
-
-        Classroom classroom = classroomDAO.getClassroomByName(classroomName);
-        if (classroom == null) {
-            return false;
-        }
-
-        int classroomId = classroom.getClassroomId();
-        List<Roster> rostersInClass = rosterDAO.getAllRostersByClassroomId(classroomId);
-
-        for (Roster roster : rostersInClass) {
-            if (roster.getStudentId() == userId) {
-                return false;
-            }
-        }
-
-        Roster newRoster = new Roster(userId, classroomId);
-        rosterDAO.insert(newRoster);
-        return true;
     }
 }

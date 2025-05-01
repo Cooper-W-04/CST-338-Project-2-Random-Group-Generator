@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.example.cst338project2randomgroups.database.AppRepository;
 import com.example.cst338project2randomgroups.database.entities.Classroom;
@@ -15,7 +16,7 @@ import java.util.List;
 public class AuthorityViewClassroomsActivity extends AppCompatActivity {
     ActivityAuthorityViewClassroomsBinding binding;
     private int authId;
-    List<Classroom> authClassrooms;
+    LiveData<List<Classroom>> authClassrooms;
     AppRepository repository;
 
     @Override
@@ -25,14 +26,7 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         repository = AppRepository.getRepository(getApplication());
-
-        authId = getIntent().getIntExtra("AUTH_ID", -1);
-        repository.getClassrooms(authId).observe(this, classrooms -> {
-            if (classrooms != null) {
-                authClassrooms = classrooms;
-                // TODO: Update UI with classrooms (e.g., populate RecyclerView)
-            }
-        });
+        authClassrooms = repository.getClassrooms(authId);
     }
 
     static Intent authorityViewClassroomsIntentFactory(Context context, int authId){
