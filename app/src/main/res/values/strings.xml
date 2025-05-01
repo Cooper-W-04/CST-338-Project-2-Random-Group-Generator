@@ -24,5 +24,20 @@
     <string name="enter_new_admin_user">Enter new Admin User</string>
     <string name="enter_new_admin_password">Enter new Admin password</string>
     <string name="add">Add</string>
+    <string name="all_classes">All Classes</string>
+    <string name="go_back">Go Back</string>
+    <string name="enter_class_id">Enter Class ID</string>
+    <string name="enter_class_id_here">Enter Class ID Here</string>
+    <string name="add_me">Add Me</string>
+    <string name="back">Go Back</string>
+    <string name="welcome_to_groupup">Welcome to GroupUp</string>
+    <string name="modify_preferences_for_class_name">Modify Preferences For {Class Name}</string>
+    <string name="preferred">Preferred:</string>
+    <string name="enter_student_id_here">enter student id here</string>
+    <string name="enter">Enter!</string>
+    <string name="avoid">Avoid:</string>
+    <string name="enter_student_id">enter student id here</string>
+    <string name="enter_">Enter!</string>
+    <string name="back_">Go Back</string>
 
 </resources>
