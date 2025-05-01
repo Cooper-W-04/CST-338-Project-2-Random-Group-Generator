@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        Button myButton = binding.logOutButton;
-        myButton.setOnClickListener(new View.OnClickListener() {
+        Button logOutButton = binding.logOutButton;
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLogoutDialog();
@@ -169,5 +169,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
-
 }

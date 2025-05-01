@@ -1,16 +1,16 @@
-//TODO: make more interactions between classroom and user for features
-//TODO: make all the features that need to be made, this is how it is because of timing
 package com.example.cst338project2randomgroups.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.cst338project2randomgroups.database.GroupDAO;
 import com.example.cst338project2randomgroups.database.RosterDAO;
 import com.example.cst338project2randomgroups.database.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity(tableName = "classrooms",
         foreignKeys = {
@@ -25,14 +25,12 @@ public class Classroom {
     private int classroomId;
     private int teacherId;
     private String className;
+    private boolean groupsCreated = false;
+    private int groupSize = 0;
 
     public Classroom(int teacherId, String className){
         this.teacherId = teacherId;
         this.className = className;
-    }
-
-    public void createGroups(int size){
-        //TODO: make code to see how many groups need to be made, also the rest of the method
     }
 
     public int getTeacherId() {
@@ -63,16 +61,19 @@ public class Classroom {
         return userDAO.getUserById(teacherId).getValue();
     }
 
-    public List<User> getStudents(UserDAO userDAO, RosterDAO rosterDAO) {
-        List<User> students = new ArrayList<>();
-        for (Roster roster : rosterDAO.getAllRosters()) {
-            if (roster.getClassroomId() == classroomId) {
-                User student = userDAO.getUserById(roster.getStudentId()).getValue();
-                if (student != null && student.getRole().equalsIgnoreCase("student")) {
-                    students.add(student);
-                }
-            }
-        }
-        return students;
+    public boolean isGroupsCreated() {
+        return groupsCreated;
+    }
+
+    public void setGroupsCreated(boolean groupsCreated) {
+        this.groupsCreated = groupsCreated;
+    }
+
+    public int getGroupSize() {
+        return groupSize;
+    }
+
+    public void setGroupSize(int groupSize) {
+        this.groupSize = groupSize;
     }
 }

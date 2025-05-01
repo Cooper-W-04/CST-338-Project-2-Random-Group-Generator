@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cst338project2randomgroups.database.entities.Classroom;
+import com.example.cst338project2randomgroups.database.entities.Group;
 import com.example.cst338project2randomgroups.database.entities.Roster;
 import com.example.cst338project2randomgroups.database.entities.User;
 
@@ -17,15 +18,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {User.class, Classroom.class, Roster.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
     private static final String DATABASE_NAME = "AppDatabase";
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    static AppDatabase getDatabase(final Context context){
+    public static final String TEACHER_ROLE = "teacher";
+    public static final String STUDENT_ROLE = "student";
+
+
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static AppDatabase getDatabase(final Context context){
         if(INSTANCE == null){
             synchronized (AppDatabase.class){
                 if(INSTANCE == null){
@@ -75,7 +80,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 User student5 = new User("student5", "student5", "Student");
                 long student5Id = userDao.insert(student5);
 
-                User teacher1 = new User("teacher1", "teacher1", "Teacher");
+                User teacher1 = new User("teacher1", "teacher1", TEACHER_ROLE);
                 long teacher1Id = userDao.insert(teacher1);
 
                 User teacher2 = new User("teacher2", "teacher2", "Teacher");
@@ -132,4 +137,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDAO userDAO();
 
     public abstract RosterDAO rosterDAO();
+
+    public abstract GroupDAO groupDAO();
 }
