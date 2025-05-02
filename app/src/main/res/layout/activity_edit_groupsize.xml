@@ -3,52 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="148dp"
-        android:autofillHints="Username"
+    <TextView
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
         android:gravity="center"
-        android:hint="@string/enter_new_admin_user"
-        android:inputType="text"
+        android:text="@string/current_group_size"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/adminUser"/>
+        android:id="@+id/titleText"/>
 
     <EditText
-        android:id="@+id/adminPassword"
+        android:id="@+id/newMax"
         android:layout_width="300dp"
         android:layout_height="75dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:autofillHints="Password"
+        android:layout_marginTop="136dp"
+        android:autofillHints="Max Number of Groups"
         android:gravity="center"
-        android:hint="@string/enter_new_admin_password"
-        android:inputType="textPassword"
+        android:hint="@string/enter_the_new_max"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adminUser" />
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
 
     <Button
-        android:layout_width="167dp"
+        android:id="@+id/confirmNewMaxButton"
+        android:layout_width="177dp"
         android:layout_height="75dp"
         android:layout_marginStart="120dp"
         android:layout_marginTop="72dp"
-        android:text="@string/add"
+        android:outlineSpotShadowColor="@color/black"
+        android:text="@string/new_max"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent    "
-        app:layout_constraintTop_toBottomOf="@id/adminPassword"
-        app:layout_constraintVertical_bias="0.118"
-        android:id="@+id/addButton"/>
+        app:layout_constraintTop_toBottomOf="@id/newMax"
+        app:layout_constraintVertical_bias="0.118" />
 
     <Button
         android:id="@+id/backButton"
@@ -59,4 +59,5 @@
         android:text="@string/go_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

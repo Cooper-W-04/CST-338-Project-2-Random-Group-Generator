@@ -40,6 +40,9 @@
     <string name="enter_student_id">enter student id here</string>
     <string name="enter_">Enter!</string>
     <string name="back_">Go Back</string>
+    <string name="current_group_size">Current group size is 4</string>
+    <string name="enter_the_new_max">Enter the new max</string>
+    <string name="new_max">New Max</string>
 
 
 </resources>
