@@ -17,7 +17,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+//ANN WAS HERE & I ADDED BACK THE ADDITIONAL STUDENT TEACHER CLASSROOM + ROSTERS.
+//IS UP TO DATE WITH MAIN. SENDING PULL REQUEST. SHOULD HAVE 0 MERGE CONFLICT
 @Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
