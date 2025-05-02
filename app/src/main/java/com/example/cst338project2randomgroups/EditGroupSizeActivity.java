@@ -2,6 +2,7 @@ package com.example.cst338project2randomgroups;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +30,14 @@ public class EditGroupSizeActivity extends AppCompatActivity {
     }
 
     private void updateMax() {
+        int newNum = Integer.parseInt(binding.newMax.getText().toString());
+        toastMaker("Updated Max Group Size");
+        binding.titleText.setText("Current max group size is " + newNum);
 
     }
+
+    private void toastMaker(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }
