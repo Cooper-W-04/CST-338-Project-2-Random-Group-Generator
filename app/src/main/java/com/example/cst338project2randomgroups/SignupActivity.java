@@ -57,13 +57,26 @@ public class SignupActivity extends AppCompatActivity {
                 verifySignupInputs();
             }
         });
+
+        binding.GoBackToLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+                wipeUserInputs();
+            }
+        });
     }
 
     static Intent SignupActivityIntentFactory(Context context){
         return new Intent(context, SignupActivity.class);
     }
 
-
+    private void wipeUserInputs(){
+        binding.newPasswordEditText.setText("");
+        binding.newPasswordEditText.setText("");
+        binding.confirmNewPasswordEditText.setText("");
+        binding.UserRoleChoiceDisplay.setText("");
+    }
 
     private void verifySignupInputs(){
         String usernameInputText = binding.newUsernameEditText.getText().toString();
@@ -94,12 +107,12 @@ public class SignupActivity extends AppCompatActivity {
     private void addUser(String username,String password, String role){
         User newUser = new User(username, password, role);
         //dao.insert(newUser);
-        Log.v("RHH",Integer.toString(newUser.getUserId()));
         toastMaker(String.format("Welcome %s",username));
         AppDatabase.databaseWriteExecutor.execute(()->{
            AppDatabase db = AppDatabase.getDatabase(this);
-           db.userDAO().insert(newUser);
-           startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUser.getUserId()));
+           repository.insertUser(newUser);
+           startActivity(LoginActivity.loginIntentFactory(this));
+           //startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUserID));
         });
     }
 }
