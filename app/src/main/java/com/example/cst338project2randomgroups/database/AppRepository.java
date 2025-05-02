@@ -32,6 +32,14 @@ public class AppRepository {
         this.groupDAO = db.groupDAO();
     }
 
+    public void insertUser(User user) {
+        AppDatabase.databaseWriteExecutor.execute(() ->
+                {
+                    userDAO.insert(user);
+                }
+        );
+    }
+
     public LiveData<User> getUserById(int userId) {
         return userDAO.getUserById(userId);
     }
