@@ -1,5 +1,7 @@
 package com.example.cst338project2randomgroups;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -40,4 +42,7 @@ public class EditGroupSizeActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    static Intent EditGroupSizeActivityIntentFactory (Context context){
+        return new Intent(context, EditGroupSizeActivity.class);
+    }
 }

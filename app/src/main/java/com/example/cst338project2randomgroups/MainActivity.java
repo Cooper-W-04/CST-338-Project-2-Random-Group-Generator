@@ -71,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button editGroupSize = binding.editMaxGroupSize;
+        editGroupSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = EditGroupSizeActivity.EditGroupSizeActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
     }
 
     private void loginUser(Bundle savedInstanceState) {

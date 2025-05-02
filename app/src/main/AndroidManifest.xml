@@ -30,6 +30,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".adminViewAllClassesActivity"/>
         <activity android:name=".AddAdminActivity"/>
+        <activity android:name=".EditGroupSizeActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
