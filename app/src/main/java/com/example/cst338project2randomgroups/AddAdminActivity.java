@@ -22,6 +22,7 @@ public class AddAdminActivity extends AppCompatActivity {
 
     private AppRepository repository;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding =ActivityAddAdminBinding.inflate(getLayoutInflater());
