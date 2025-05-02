@@ -26,6 +26,7 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         repository = AppRepository.getRepository(getApplication());
+        authId = getIntent().getIntExtra("AUTH_ID", -1);
         authClassrooms = repository.getClassrooms(authId);
     }
 
