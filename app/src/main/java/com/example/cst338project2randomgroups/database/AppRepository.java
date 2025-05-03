@@ -270,4 +270,33 @@ public class AppRepository {
     public LiveData<Classroom> getClassroomById(int classroomId){
         return classroomDAO.getClassroomById(classroomId);
     }
+
+    public boolean joinClassroomById(int classroomId, User user){
+        //checks only students are joining the class
+        if(user.getRole().equals("teacher") || user.getRole().equals("admin")){
+            return false;
+        }
+
+        //classroomId does not exist
+//        LiveData<Classroom> classroom = classroomDAO.getClassroomById(classroomId);
+//        if(classroom == null){
+//            return false;
+//        }
+
+        //check if student is already in that classroom
+        //here we are getting the roster list of a specific classroom
+//        List<Roster> rosterList = rosterDAO.getAllRostersByClassroomIdNow(classroomId);
+//        for (Roster roster : rosterList){
+//            if(roster.getStudentId() == user.getUserId()){
+//                return false;
+//            }
+//        }
+
+        Roster newRoster = new Roster(classroomId, user.getUserId());
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            rosterDAO.insert(newRoster);
+        });
+        return true;
+    }
+
 }
