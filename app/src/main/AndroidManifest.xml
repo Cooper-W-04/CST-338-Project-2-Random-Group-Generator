@@ -31,6 +31,8 @@
             android:name=".SignupActivity"
             android:exported="false" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".adminViewAllClassesActivity"/>
+        <activity android:name=".AddAdminActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

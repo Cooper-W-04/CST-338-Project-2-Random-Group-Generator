@@ -17,13 +17,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
-@Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 1, exportSchema = false)
+//ANN WAS HERE & I ADDED BACK THE ADDITIONAL STUDENT TEACHER CLASSROOM + ROSTERS.
+//IS UP TO DATE WITH MAIN. SENDING PULL REQUEST. SHOULD HAVE 0 MERGE CONFLICT
+@Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
     private static final String DATABASE_NAME = "AppDatabase";
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
+
+    public static final String ADMIN_ROLE = "admin";
 
     public static final String TEACHER_ROLE = "teacher";
     public static final String STUDENT_ROLE = "student";
