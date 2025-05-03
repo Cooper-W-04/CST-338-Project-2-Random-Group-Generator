@@ -26,10 +26,10 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
-    public static final String ADMIN_ROLE = "admin";
+    public static final String ADMIN_ROLE = "Admin";
 
-    public static final String TEACHER_ROLE = "teacher";
-    public static final String STUDENT_ROLE = "student";
+    public static final String TEACHER_ROLE = "Teacher";
+    public static final String STUDENT_ROLE = "Student";
 
 
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -64,32 +64,32 @@ public abstract class AppDatabase extends RoomDatabase {
                 userDao.deleteAll();
 
                 //default users
-                User admin = new User("admin1", "admin1", "Admin");
+                User admin = new User("admin1", "admin1", ADMIN_ROLE);
                 admin.setAdmin(true);
                 userDao.insert(admin);
 
-                User student1 = new User("student1", "student1", "Student");
+                User student1 = new User("student1", "student1", STUDENT_ROLE);
                 long student1Id = userDao.insert(student1);
 
-                User student2 = new User("student2", "student2", "Student");
+                User student2 = new User("student2", "student2", STUDENT_ROLE);
                 long student2Id = userDao.insert(student2);
 
-                User student3 = new User("student3", "student3", "Student");
+                User student3 = new User("student3", "student3", STUDENT_ROLE);
                 long student3Id = userDao.insert(student3);
 
-                User student4 = new User("student4", "student4", "Student");
+                User student4 = new User("student4", "student4", STUDENT_ROLE);
                 long student4Id = userDao.insert(student4);
 
-                User student5 = new User("student5", "student5", "Student");
+                User student5 = new User("student5", "student5", STUDENT_ROLE);
                 long student5Id = userDao.insert(student5);
 
                 User teacher1 = new User("teacher1", "teacher1", TEACHER_ROLE);
                 long teacher1Id = userDao.insert(teacher1);
 
-                User teacher2 = new User("teacher2", "teacher2", "Teacher");
+                User teacher2 = new User("teacher2", "teacher2", TEACHER_ROLE);
                 long teacher2Id = userDao.insert(teacher2);
 
-                User teacher3 = new User("teacher3", "teacher3", "Teacher");
+                User teacher3 = new User("teacher3", "teacher3", TEACHER_ROLE);
                 long teacher3Id = userDao.insert(teacher3);
 
                 //default classrooms
