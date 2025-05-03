@@ -179,17 +179,17 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/goBackStudentLandingPageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Go Back"
-        android:backgroundTint="#adadad"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/studentClass3CardView"
-        app:layout_constraintVertical_bias="0.879" />
+    android:id="@+id/goBackStudentLandingPageButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:text="Go Back"
+    android:backgroundTint="#adadad"
+    android:textColor="#000000"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/studentClass3CardView"
+    app:layout_constraintVertical_bias="0.879" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

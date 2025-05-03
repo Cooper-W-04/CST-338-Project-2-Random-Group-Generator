@@ -212,4 +212,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
+
+    static Intent mainActivityIntentFactory(Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 }

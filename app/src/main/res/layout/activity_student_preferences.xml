@@ -55,7 +55,8 @@
 
             <EditText
                 android:id="@+id/preferredStudentEditText"
-                android:layout_width="0dp"
+                android:layout_width="170dp"
+                android:gravity="center"
                 android:layout_height="48dp"
                 android:layout_marginEnd="100dp"
                 android:inputType="number"
@@ -117,7 +118,8 @@
 
             <EditText
                 android:id="@+id/avoidStudentEditText"
-                android:layout_width="0dp"
+                android:layout_width="170dp"
+                android:gravity="center"
                 android:layout_height="48dp"
                 android:layout_marginEnd="100dp"
                 android:inputType="number"

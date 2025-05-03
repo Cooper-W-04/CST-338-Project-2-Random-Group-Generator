@@ -2,6 +2,8 @@ package com.example.cst338project2randomgroups.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -35,6 +37,7 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.Clas
         });
     }
 
+    //view all classes offered here
     @NonNull
     @Override
     public ClassroomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +46,10 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.Clas
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
+        //modifying button styling here
+        button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f9a54e")));
+        button.setTextColor(Color.parseColor("#000000"));
+
         return new ClassroomViewHolder(button);
     }
 
