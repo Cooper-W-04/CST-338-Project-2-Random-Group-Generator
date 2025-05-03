@@ -9,9 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cst338project2randomgroups.database.AppDatabase;
 import com.example.cst338project2randomgroups.database.AppRepository;
-import com.example.cst338project2randomgroups.database.entities.Roster;
 import com.example.cst338project2randomgroups.database.entities.User;
 import com.example.cst338project2randomgroups.databinding.ActivityJoinAclassBinding;
 
@@ -82,19 +80,14 @@ public class JoinAClassActivity extends AppCompatActivity {
     private void addStudentToClass() {
         //since we are working with live data, we must check if user is a valid object otherwise we will get null pointer exception
         if(user != null){
-            Roster newRoster = new Roster(classID, user.getUserId());
-            AppDatabase.databaseWriteExecutor.execute(() -> {
-                AppDatabase db = AppDatabase.getDatabase(this);
-                repository.insertStudentToClassroom(newRoster);
-            });
 
-//            boolean isAdded = false;
-//
-//            if(isAdded){
-//                Toast.makeText(this, user.getUsername() + " has successfully joined the class!", Toast.LENGTH_SHORT).show();
-//            }else {
-//                Toast.makeText(this, user.getUsername() + " has already enrolled or unable to join!", Toast.LENGTH_SHORT).show();
-//            }
+            boolean isAdded = repository.joinClassroomById(classID, user);
+
+            if(isAdded){
+                Toast.makeText(this, user.getUsername() + " has successfully joined the class!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, user.getUsername() + " has already enrolled or unable to join!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

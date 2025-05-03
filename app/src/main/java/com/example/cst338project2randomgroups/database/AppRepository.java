@@ -192,33 +192,33 @@ public class AppRepository {
         return true;
     }
 
-//    public boolean joinClassroomById(int classroomId, User user){
-//        //checks only students are joining the class
-//        if(user.getRole().equals("teacher") || user.getRole().equals("admin")){
-//            return false;
-//        }
-//
-//        //classroomId does not exist
+    public boolean joinClassroomById(int classroomId, User user){
+        //checks only students are joining the class
+        if(user.getRole().equals("teacher") || user.getRole().equals("admin")){
+            return false;
+        }
+
+        //classroomId does not exist
 //        Classroom classroom = classroomDAO.getClassroomById(classroomId);
 //        if(classroom == null){
 //            return false;
 //        }
-//
-//        //check if student is already in that classroom
-//        //here we are getting the roster list of a specific classroom
+
+        //check if student is already in that classroom
+        //here we are getting the roster list of a specific classroom
 //        List<Roster> rosterList = rosterDAO.getAllRostersByClassroomId(classroomId);
 //        for (Roster roster : rosterList){
 //            if(roster.getStudentId() == user.getUserId()){
 //                return false;
 //            }
 //        }
-//
-//        Roster newRoster = new Roster(classroomId, user.getUserId());
-//        AppDatabase.databaseWriteExecutor.execute(() -> {
-//            rosterDAO.insert(newRoster);
-//        });
-//        return true;
-//    }
+
+        Roster newRoster = new Roster(classroomId, user.getUserId());
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            rosterDAO.insert(newRoster);
+        });
+        return true;
+    }
 
     public void insertStudentToClassroom(Roster newRoster) {
         AppDatabase.databaseWriteExecutor.execute(() ->
