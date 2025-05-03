@@ -24,7 +24,7 @@ public class ActivityAuthorityViewSelectedClassroom extends AppCompatActivity {
         binding = ActivityAuthorityViewSelectedClassroomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        int classroomId = getIntent().getIntExtra("CLASSROOM_ID", -1);
+        classroomId = getIntent().getIntExtra("CLASSROOM_ID", -1);
         repository = AppRepository.getRepository(getApplication());
 
         repository.getClassroomStudents(classroomId).observe(this, users -> {
@@ -32,6 +32,19 @@ public class ActivityAuthorityViewSelectedClassroom extends AppCompatActivity {
             binding.studentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             binding.studentsRecyclerView.setAdapter(adapter);
         });
+
+        //display teacher's username
+        repository.getClassroomById(classroomId).observe(this, classroom -> {
+            if (classroom != null) {
+                int teacherId = classroom.getTeacherId();
+                repository.getUserById(teacherId).observe(this, teacher -> {
+                    if (teacher != null) {
+                        binding.teacherNameTextView.setText("Teacher: " + teacher.getUsername());
+                    }
+                });
+            }
+        });
+
 
 
         Button goBackButton = binding.goBackClassroomViewerButton;
