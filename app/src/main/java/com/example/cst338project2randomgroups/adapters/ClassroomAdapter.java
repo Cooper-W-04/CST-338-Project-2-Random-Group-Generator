@@ -20,11 +20,12 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.Clas
 
     private final List<Classroom> classrooms = new ArrayList<>();
     private final Context context;
+    private final boolean auth;
 
-    public ClassroomAdapter(Context context, LiveData<List<Classroom>> classroomLiveData, LifecycleOwner lifecycleOwner) {
+    public ClassroomAdapter(Context context, LiveData<List<Classroom>> classroomLiveData, LifecycleOwner lifecycleOwner, boolean auth) {
         this.context = context;
+        this.auth = auth;
 
-        // Observe LiveData and update internal list
         classroomLiveData.observe(lifecycleOwner, updatedList -> {
             classrooms.clear();
             if (updatedList != null) {
@@ -50,9 +51,13 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.Clas
         Classroom classroom = classrooms.get(position);
         holder.button.setText(classroom.getClassName());
         holder.button.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ActivityAuthorityViewSelectedClassroom.class);
-            intent.putExtra("CLASSROOM_ID", classroom.getClassroomId());
-            context.startActivity(intent);
+            if (auth) {
+                Intent intent = new Intent(context, ActivityAuthorityViewSelectedClassroom.class);
+                intent.putExtra("CLASSROOM_ID", classroom.getClassroomId());
+                context.startActivity(intent);
+            } else {
+                // TODO: Replace with intent for student version of viewing a classroom
+            }
         });
     }
 

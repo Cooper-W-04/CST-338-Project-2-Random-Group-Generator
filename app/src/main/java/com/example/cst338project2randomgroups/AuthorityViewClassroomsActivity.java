@@ -35,7 +35,7 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
 
         LiveData<List<Classroom>> classroomLiveData = repository.getClassrooms(authId);
 
-        ClassroomAdapter adapter = new ClassroomAdapter(this, classroomLiveData, this);
+        ClassroomAdapter adapter = new ClassroomAdapter(this, classroomLiveData, this, true);
         binding.classroomRecyclerView.setAdapter(adapter);
 
         binding.goBackToLandingPageButton.setOnClickListener(v -> finish());

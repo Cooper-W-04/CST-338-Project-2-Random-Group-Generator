@@ -266,4 +266,8 @@ public class AppRepository {
 
         return result;
     }
+
+    public LiveData<Classroom> getClassroomById(int classroomId){
+        return classroomDAO.getClassroomById(classroomId);
+    }
 }
