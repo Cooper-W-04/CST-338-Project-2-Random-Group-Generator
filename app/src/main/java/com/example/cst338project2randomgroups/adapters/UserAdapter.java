@@ -1,6 +1,8 @@
 package com.example.cst338project2randomgroups.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -29,6 +31,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
+        //modifying button styling here
+        button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f9a54e")));
+        button.setTextColor(Color.parseColor("#000000"));
+        
         return new UserViewHolder(button);
     }
 
