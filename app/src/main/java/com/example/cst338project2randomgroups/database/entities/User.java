@@ -55,7 +55,7 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-        this.isAdmin = role.equalsIgnoreCase("Admin");
+        setAdmin(role.equalsIgnoreCase("admin"));
     }
 
     public int getUserId() {

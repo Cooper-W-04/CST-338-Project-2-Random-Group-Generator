@@ -1,5 +1,6 @@
 package com.example.cst338project2randomgroups.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,20 +17,23 @@ public interface ClassroomDAO {
     long insert(Classroom classroom);
 
     @Query("SELECT * FROM classrooms WHERE classroomId == :classroomId LIMIT 1")
-    Classroom getClassroomById(int classroomId);
+    LiveData<Classroom> getClassroomById(int classroomId);
 
     @Query("SELECT * FROM classrooms WHERE className == :className LIMIT 1")
-    Classroom getClassroomByName(String className);
+    LiveData<Classroom> getClassroomByName(String className);
 
     @Query("SELECT * FROM classrooms WHERE teacherId = :teacherId")
-    List<Classroom> getClassroomsByTeacherId(int teacherId);
+    LiveData<List<Classroom>> getClassroomsByTeacherId(int teacherId);
 
     @Query("SELECT * FROM classrooms")
-    List<Classroom> getAllClassrooms();
+    LiveData<List<Classroom>> getAllClassrooms();
 
     @Update
     void updateClassroom(Classroom classroom);
 
     @Delete
     void deleteClassroom(Classroom classroom);
+
+    @Query("SELECT * FROM classrooms WHERE classroomId IN (:ids)")
+    LiveData<List<Classroom>> getClassroomsByIds(List<Integer> ids);
 }
