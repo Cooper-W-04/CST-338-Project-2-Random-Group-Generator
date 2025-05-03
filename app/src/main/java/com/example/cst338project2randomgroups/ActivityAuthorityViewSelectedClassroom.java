@@ -33,6 +33,7 @@ public class ActivityAuthorityViewSelectedClassroom extends AppCompatActivity {
             binding.studentsRecyclerView.setAdapter(adapter);
         });
 
+
         Button goBackButton = binding.goBackClassroomViewerButton;
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
