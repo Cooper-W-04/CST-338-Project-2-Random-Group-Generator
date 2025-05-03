@@ -111,8 +111,5 @@ public class JoinAClassActivity extends AppCompatActivity {
             Log.d(TAG, "Error reading value from class id edit text.");
             throw new RuntimeException(e);
         }
-
-
-
     }
 }

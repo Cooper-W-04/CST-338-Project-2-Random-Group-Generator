@@ -113,6 +113,16 @@ public class MainActivity extends AppCompatActivity {
             binding.viewEnrolledClasses.setVisibility(View.GONE);
             binding.joinClassroom.setVisibility(View.GONE);
             binding.editMaxGroupSize.setVisibility(View.VISIBLE);
+
+            //admin stuff goes here
+            Button viewAllClasses = binding.viewAllClasses;
+            viewAllClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = AuthorityViewClassroomsActivity.authorityViewClassroomsIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
         } else if(user.getRole().equalsIgnoreCase("Teacher")){
             binding.viewAllClasses.setVisibility(View.GONE);
             binding.createAdmin.setVisibility(View.GONE);
@@ -120,6 +130,17 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.VISIBLE);
             binding.viewEnrolledClasses.setVisibility(View.GONE);
             binding.joinClassroom.setVisibility(View.GONE);
+            binding.editMaxGroupSize.setVisibility(View.GONE);
+
+            //teacher stuff goes here
+            Button viewClasses = binding.viewClasses;
+            viewClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = AuthorityViewClassroomsActivity.authorityViewClassroomsIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
         } else{
             binding.viewAllClasses.setVisibility(View.GONE);
             binding.createAdmin.setVisibility(View.GONE);
@@ -127,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.GONE);
             binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
             binding.joinClassroom.setVisibility(View.VISIBLE);
+            binding.editMaxGroupSize.setVisibility(View.GONE);
 
             binding.joinClassroom.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
                     startActivity(intent);
-
                 }
             });
 
