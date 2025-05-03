@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 
@@ -103,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateAfterLogin(){
         invalidateOptionsMenu();
-        binding.welcome.setText("Welcome "+user.getRole() + "!");
+        String welcomeText = "Welcome <i>" + user.getUsername() + "</i>";
+        binding.welcome.setText(Html.fromHtml(welcomeText, Html.FROM_HTML_MODE_LEGACY));
+//        binding.welcome.setText("Welcome "+ user.getUsername() + "!");
 
         if(user.getRole().equalsIgnoreCase("Admin")){
             binding.viewAllClasses.setVisibility(View.VISIBLE);
