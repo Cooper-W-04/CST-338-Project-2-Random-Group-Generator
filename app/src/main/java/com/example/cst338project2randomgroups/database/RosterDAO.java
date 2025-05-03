@@ -26,6 +26,9 @@ public interface RosterDAO {
     @Query("SELECT * FROM rosters")
     LiveData<List<Roster>> getAllRosters();
 
+//    @Query("SELECT * FROM rosters WHERE classroomId = :classroomId")
+//    List<Roster> getAllRostersByClassroomIdNow(int classroomId);
+
     @Query("SELECT * FROM rosters WHERE studentId = :studentId")
     LiveData<List<Roster>> getRostersByStudentId(int studentId);
 

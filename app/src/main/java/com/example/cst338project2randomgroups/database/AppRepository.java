@@ -278,14 +278,14 @@ public class AppRepository {
         }
 
         //classroomId does not exist
-//        Classroom classroom = classroomDAO.getClassroomById(classroomId);
+//        LiveData<Classroom> classroom = classroomDAO.getClassroomById(classroomId);
 //        if(classroom == null){
 //            return false;
 //        }
 
         //check if student is already in that classroom
         //here we are getting the roster list of a specific classroom
-//        List<Roster> rosterList = rosterDAO.getAllRostersByClassroomId(classroomId);
+//        List<Roster> rosterList = rosterDAO.getAllRostersByClassroomIdNow(classroomId);
 //        for (Roster roster : rosterList){
 //            if(roster.getStudentId() == user.getUserId()){
 //                return false;
@@ -298,15 +298,5 @@ public class AppRepository {
         });
         return true;
     }
-
-    public void insertStudentToClassroom(Roster newRoster) {
-        AppDatabase.databaseWriteExecutor.execute(() ->
-                {
-                    rosterDAO.insert(newRoster);
-                }
-        );
-    }
-
-
 
 }
