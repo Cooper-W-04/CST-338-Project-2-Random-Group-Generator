@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
 
 android {

@@ -1,5 +1,6 @@
-package com.example.cst338project2randomgroups;
+//made by Cooper Westervelt :3
 
+package com.example.cst338project2randomgroups;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,14 +26,12 @@ public class EntityTest {
         //user setup
         user1 = new User("cooper", "cooper", "student");
         user2 = new User("ann", "ann", "teacher");
-        user3 = user1;
-        user3.setRole("teacher");
+        user3 = new User("cooper", "cooper", "teacher");
 
         //classroom setup
         classroom1 = new Classroom(user2.getUserId(), "cst338");
-        classroom2 = new Classroom(user3.getUserId(), "cst338");
-        classroom3 = classroom1;
-        classroom1.setTeacherId(user3.getUserId());
+        classroom2 = new Classroom(user3.getUserId(), "cst231");
+        classroom3 = new Classroom(user2.getUserId(), "something else");
     }
 
     @AfterEach
@@ -46,7 +45,30 @@ public class EntityTest {
     }
 
     @Test
-    public void studentTest(){
+    public void userTest(){
+        //basic tests
         assertNotEquals(user1, user2);
+        assertEquals(user1.getUsername(), user3.getUsername());
+        assertEquals(user1.getPassword(), user3.getPassword());
+        assertNotEquals(user1, user3);
+
+        //getter and setter tests
+        user1.setUsername("sarah");
+        assertEquals("sarah", user1.getUsername());
+        assertNotEquals(user1.getUsername(), "cooper");
+
+        String user3pass = user3.getPassword();
+        user3.setPassword(user2.getPassword());
+        assertEquals("ann", user3.getPassword());
+        assertNotEquals(user3pass, user3.getPassword());
+    }
+
+    @Test
+    public void classroomTest(){
+        assertNotEquals(classroom1, classroom2);
+
+        //getter and setter dumb stuff
+        classroom2.setTeacherId(user3.getUserId());
+        assertEquals(user3.getUserId(), classroom2.getTeacherId());
     }
 }
