@@ -1,5 +1,6 @@
 package com.example.cst338project2randomgroups.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,16 +18,19 @@ public interface RosterDAO {
     long insert(Roster roster);
 
     @Query("SELECT * FROM rosters WHERE rosterId = :rosterId LIMIT 1")
-    Roster getRosterById(int rosterId);
+    LiveData<Roster> getRosterById(int rosterId);
 
     @Query("SELECT * FROM rosters WHERE classroomId = :classroomId")
-    List<Roster> getAllRostersByClassroomId(int classroomId);
+    LiveData<List<Roster>> getAllRostersByClassroomId(int classroomId);
 
     @Query("SELECT * FROM rosters")
-    List<Roster> getAllRosters();
+    LiveData<List<Roster>> getAllRosters();
+
+//    @Query("SELECT * FROM rosters WHERE classroomId = :classroomId")
+//    List<Roster> getAllRostersByClassroomIdNow(int classroomId);
 
     @Query("SELECT * FROM rosters WHERE studentId = :studentId")
-    List<Roster> getRostersByStudentId(int studentId);
+    LiveData<List<Roster>> getRostersByStudentId(int studentId);
 
     @Update
     void updateRoster(Roster roster);

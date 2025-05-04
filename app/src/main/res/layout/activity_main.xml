@@ -3,29 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#fce5cd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/welcome"
-        android:layout_width="400dp"
-        android:layout_height="81dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffd966"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:paddingStart="55dp"
         android:text="@string/welcome"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.248" />
+        app:layout_constraintVertical_bias="0.212" />
 
     <Button
         android:id="@+id/logOutButton"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#adadad"
         android:text="@string/log_out"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,7 +51,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.629" />
+        app:layout_constraintVertical_bias="0.629"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/editMaxGroupSize"
@@ -55,7 +67,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.561"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/createAdmin"
@@ -69,7 +83,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editMaxGroupSize"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.108"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/viewClasses"
@@ -83,7 +99,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944" />
+        app:layout_constraintVertical_bias="0.944"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/createNewClassroom"
@@ -97,7 +115,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintVertical_bias="0.374"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/viewEnrolledClasses"
@@ -111,7 +131,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
+        app:layout_constraintVertical_bias="0.631"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/joinClassroom"
@@ -125,6 +147,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.561"
+        android:backgroundTint="#f9a54e"
+        android:textColor="#000000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

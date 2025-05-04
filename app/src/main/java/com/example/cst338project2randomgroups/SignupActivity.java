@@ -36,7 +36,6 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         repository = AppRepository.getRepository(getApplication());
 
-
         binding.signUpAsStudentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +108,6 @@ public class SignupActivity extends AppCompatActivity {
         //dao.insert(newUser);
         toastMaker(String.format("Welcome %s",username));
         AppDatabase.databaseWriteExecutor.execute(()->{
-           AppDatabase db = AppDatabase.getDatabase(this);
            repository.insertUser(newUser);
            startActivity(LoginActivity.loginIntentFactory(this));
            //startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), newUserID));

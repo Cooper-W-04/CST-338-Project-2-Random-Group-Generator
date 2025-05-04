@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
 
 android {
@@ -36,6 +37,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -58,4 +60,8 @@ dependencies {
     dependencies {
         implementation("androidx.cardview:cardview:1.0.0")
     }
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("androidx.test:core:1.5.0")
 }

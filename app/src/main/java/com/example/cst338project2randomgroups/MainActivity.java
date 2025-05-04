@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 
@@ -71,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button createClass = binding.createNewClassroom;
+        createClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = CreateClassActivity.CreateClassIntentFactory(getApplicationContext(),loggedInUserId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -103,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateAfterLogin(){
         invalidateOptionsMenu();
-        binding.welcome.setText("Welcome "+user.getRole() + "!");
+        String welcomeText = "Welcome <i>" + user.getUsername() + "</i>";
+        binding.welcome.setText(Html.fromHtml(welcomeText, Html.FROM_HTML_MODE_LEGACY));
+//        binding.welcome.setText("Welcome "+ user.getUsername() + "!");
 
         if(user.getRole().equalsIgnoreCase("Admin")){
             binding.viewAllClasses.setVisibility(View.VISIBLE);
@@ -113,6 +126,16 @@ public class MainActivity extends AppCompatActivity {
             binding.viewEnrolledClasses.setVisibility(View.GONE);
             binding.joinClassroom.setVisibility(View.GONE);
             binding.editMaxGroupSize.setVisibility(View.VISIBLE);
+
+            //admin stuff goes here
+            Button viewAllClasses = binding.viewAllClasses;
+            viewAllClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = AuthorityViewClassroomsActivity.authorityViewClassroomsIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
         } else if(user.getRole().equalsIgnoreCase("Teacher")){
             binding.viewAllClasses.setVisibility(View.GONE);
             binding.createAdmin.setVisibility(View.GONE);
@@ -120,6 +143,17 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.VISIBLE);
             binding.viewEnrolledClasses.setVisibility(View.GONE);
             binding.joinClassroom.setVisibility(View.GONE);
+            binding.editMaxGroupSize.setVisibility(View.GONE);
+
+            //teacher stuff goes here
+            Button viewClasses = binding.viewClasses;
+            viewClasses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = AuthorityViewClassroomsActivity.authorityViewClassroomsIntentFactory(getApplicationContext(), loggedInUserId);
+                    startActivity(intent);
+                }
+            });
         } else{
             binding.viewAllClasses.setVisibility(View.GONE);
             binding.createAdmin.setVisibility(View.GONE);
@@ -127,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             binding.createNewClassroom.setVisibility(View.GONE);
             binding.viewEnrolledClasses.setVisibility(View.VISIBLE);
             binding.joinClassroom.setVisibility(View.VISIBLE);
+            binding.editMaxGroupSize.setVisibility(View.GONE);
 
             binding.joinClassroom.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
                     startActivity(intent);
-
                 }
             });
 

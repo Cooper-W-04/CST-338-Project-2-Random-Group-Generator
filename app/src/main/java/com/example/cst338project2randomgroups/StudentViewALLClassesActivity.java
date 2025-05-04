@@ -1,20 +1,19 @@
 package com.example.cst338project2randomgroups;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.cst338project2randomgroups.adapters.ClassroomAdapter;
 import com.example.cst338project2randomgroups.database.AppRepository;
+import com.example.cst338project2randomgroups.database.entities.Classroom;
 import com.example.cst338project2randomgroups.database.entities.User;
 import com.example.cst338project2randomgroups.databinding.ActivityStudentViewAllclassesBinding;
+
+import java.util.List;
 
 public class StudentViewALLClassesActivity extends AppCompatActivity {
 
@@ -40,46 +39,56 @@ public class StudentViewALLClassesActivity extends AppCompatActivity {
         studentId = getIntent().getIntExtra("STUDENT_ID", -1);
         repository = AppRepository.getRepository(getApplication());
 
+
+        //using recycler view here
+        binding.studentClassRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         //grab logged in student's information from the database
         //store it ina user object so we can use it later
         repository.getUserById(studentId).observe(this, user -> {
             if (user != null) {
                 this.user = user;
                 binding.titleViewALLClassesTextView.setText("All Classes for " + user.getUsername());
+
+                //grab all the classes a student is enrolled in
+                LiveData<List<Classroom>> classroomLiveData = repository.getStudentClassrooms(studentId);
+                ClassroomAdapter adapter = new ClassroomAdapter(this, classroomLiveData, this, false);
+                binding.studentClassRecyclerView.setAdapter(adapter);
+
             }
         });
 
-        binding.goBackStudentLandingPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId());
-                startActivity(intent);
-            }
+        binding.goBackStudentLandingPageButton.setOnClickListener(v -> {
+            Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId());
+            startActivity(intent);
         });
 
-        binding.studentViewClass1Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
-                startActivity(intent);
-            }
-        });
+        //switching to recycler view
 
-        binding.studentViewClass2Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
-                startActivity(intent);
-            }
-        });
-
-        binding.studentViewClass3Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
-                startActivity(intent);
-            }
-        });
+//        binding.studentViewClass1Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
+//                startActivity(intent);
+//            }
+//        });
+//
+//        binding.studentViewClass2Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
+//                startActivity(intent);
+//            }
+//        });
+//
+//        binding.studentViewClass3Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = StudentViewSELECTEDClassActivity.studentViewSELECTEDClassesIntentFactory(getApplicationContext(), user.getUserId());
+//                startActivity(intent);
+//            }
+//        });
 
 
 

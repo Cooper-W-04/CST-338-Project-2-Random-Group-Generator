@@ -10,6 +10,7 @@ import com.example.cst338project2randomgroups.database.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Entity(tableName = "classrooms",
@@ -75,5 +76,18 @@ public class Classroom {
 
     public void setGroupSize(int groupSize) {
         this.groupSize = groupSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Classroom classroom = (Classroom) o;
+        return teacherId == classroom.teacherId && groupsCreated == classroom.groupsCreated && Objects.equals(className, classroom.className);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(teacherId, className, groupsCreated);
     }
 }

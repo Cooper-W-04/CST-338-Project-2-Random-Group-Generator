@@ -17,7 +17,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+//ANN WAS HERE & I ADDED BACK THE ADDITIONAL STUDENT TEACHER CLASSROOM + ROSTERS.
+//IS UP TO DATE WITH MAIN. SENDING PULL REQUEST. SHOULD HAVE 0 MERGE CONFLICT
 @Database(entities = {User.class, Classroom.class, Roster.class, Group.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String USER_TABLE = "users";
@@ -25,10 +26,10 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
 
-    public static final String TEACHER_ROLE = "teacher";
-    public static final String STUDENT_ROLE = "student";
+    public static final String ADMIN_ROLE = "Admin";
 
-    public static final String ADMIN_ROLE = "admin";
+    public static final String TEACHER_ROLE = "Teacher";
+    public static final String STUDENT_ROLE = "Student";
 
 
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -56,19 +57,80 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onCreate(db);
             Log.i("CJW", "DATABASE CREATED!");
             databaseWriteExecutor.execute(() -> {
-                UserDAO dao = INSTANCE.userDAO();
-                dao.deleteAll();
+                UserDAO userDao = INSTANCE.userDAO();
+                ClassroomDAO classroomDao = INSTANCE.classroomDAO();
+                RosterDAO rosterDao = INSTANCE.rosterDAO();
+
+                userDao.deleteAll();
+
+                //default users
                 User admin = new User("admin1", "admin1", ADMIN_ROLE);
                 admin.setAdmin(true);
-                dao.insert(admin);
-
+                userDao.insert(admin);
 
                 User student1 = new User("student1", "student1", STUDENT_ROLE);
-                dao.insert(student1);
+                long student1Id = userDao.insert(student1);
+
+                User student2 = new User("student2", "student2", STUDENT_ROLE);
+                long student2Id = userDao.insert(student2);
+
+                User student3 = new User("student3", "student3", STUDENT_ROLE);
+                long student3Id = userDao.insert(student3);
+
+                User student4 = new User("student4", "student4", STUDENT_ROLE);
+                long student4Id = userDao.insert(student4);
+
+                User student5 = new User("student5", "student5", STUDENT_ROLE);
+                long student5Id = userDao.insert(student5);
 
                 User teacher1 = new User("teacher1", "teacher1", TEACHER_ROLE);
+                long teacher1Id = userDao.insert(teacher1);
 
-                dao.insert(teacher1);
+                User teacher2 = new User("teacher2", "teacher2", TEACHER_ROLE);
+                long teacher2Id = userDao.insert(teacher2);
+
+                User teacher3 = new User("teacher3", "teacher3", TEACHER_ROLE);
+                long teacher3Id = userDao.insert(teacher3);
+
+                //default classrooms
+                Classroom englishClass = new Classroom((int)teacher1Id, "English 200");
+                int englishClassId = (int)classroomDao.insert(englishClass);
+
+                Classroom mathClass = new Classroom((int)teacher2Id, "Math 150");
+                int mathClassId = (int)classroomDao.insert(mathClass);
+
+                Classroom scienceClass = new Classroom((int)teacher3Id, "Science 100");
+                int scienceClassId = (int)classroomDao.insert(scienceClass);
+
+                //default rosters
+                Roster roster1 = new Roster(mathClassId, (int)student1Id);  // student1 in math class
+                Roster roster2 = new Roster(englishClassId, (int)student1Id); // student1 in english class
+                Roster roster3 = new Roster(scienceClassId, (int)student1Id); // student1 in science class
+
+
+                Roster roster4 = new Roster(mathClassId, (int)student2Id);   // student2 in math class
+                Roster roster5 = new Roster(englishClassId, (int)student2Id);   // student2 in english class
+
+                Roster roster6 = new Roster(mathClassId, (int)student3Id);  // student3 in math class
+                Roster roster7 = new Roster(scienceClassId, (int)student3Id);   // student3 in science class
+
+                Roster roster8 = new Roster(mathClassId, (int)student4Id);  // student4 in math class
+                Roster roster9 = new Roster(englishClassId, (int)student4Id);   // student4 in english class
+
+                Roster roster10 = new Roster(mathClassId, (int)student5Id);  // student5 in math class
+
+
+                rosterDao.insert(roster1);
+                rosterDao.insert(roster2);
+                rosterDao.insert(roster3);
+                rosterDao.insert(roster4);
+                rosterDao.insert(roster5);
+                rosterDao.insert(roster6);
+                rosterDao.insert(roster7);
+                rosterDao.insert(roster8);
+                rosterDao.insert(roster9);
+                rosterDao.insert(roster10);
+
             });
         }
     };
@@ -81,4 +143,3 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract GroupDAO groupDAO();
 }
-
