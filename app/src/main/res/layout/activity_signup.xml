@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fce5cd"
     tools:context=".SignupActivity">
 
     <TextView
@@ -23,6 +24,8 @@
     <Button
         android:id="@+id/signUpAsTeacherButton"
         android:layout_width="150dp"
+        android:backgroundTint="#a2c4c9"
+        android:textColor="#000000"
         android:layout_height="75dp"
         android:text="@string/teacher"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +38,8 @@
         android:layout_width="150dp"
         android:layout_height="75dp"
         android:text="@string/student"
+        android:backgroundTint="#a2c4c9"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +52,7 @@
         android:fontFamily="sans-serif-black"
         app:layout_constraintTop_toBottomOf="@id/signUpAsTeacherButton"
         android:gravity="center"
+        android:background="#ffd966"
         android:text="@string/roleDisplay"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent">
@@ -91,28 +97,33 @@
         android:autofillHints="password"
         >
     </EditText>
+
     <Button
         android:id="@+id/confirmSignUpButton"
         android:layout_width="150dp"
         android:layout_height="75dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#f9a54e"
         android:text="@string/sign_up_now"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmNewPasswordEditText"
-        android:layout_marginTop="75dp"
-        >
+        app:layout_constraintTop_toBottomOf="@id/confirmNewPasswordEditText">
     </Button>
+
 
     <Button
         android:id="@+id/GoBackToLogoutButton"
-        android:layout_width="112dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/go_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#adadad"
+        android:text="Go Back"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmSignUpButton">
-    </Button>
+        app:layout_constraintTop_toBottomOf="@id/confirmSignUpButton"
+        app:layout_constraintVertical_bias="0.73" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
