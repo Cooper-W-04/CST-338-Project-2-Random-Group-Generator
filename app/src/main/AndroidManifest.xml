@@ -31,6 +31,8 @@
         <activity android:name=".adminViewAllClassesActivity"/>
         <activity android:name=".AddAdminActivity"/>
         <activity android:name=".EditGroupSizeActivity"/>
+        <activity android:name=".AuthorityViewClassroomsActivity"/>
+        <activity android:name=".CreateClassActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
