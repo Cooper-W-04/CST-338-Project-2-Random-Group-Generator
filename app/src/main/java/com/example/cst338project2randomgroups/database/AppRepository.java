@@ -40,11 +40,7 @@ public class AppRepository {
     public void insertUser(User user) {
         AppDatabase.databaseWriteExecutor.execute(() ->
                 {
-                    if(getUserById(user.getUserId())==null){
-                        userDAO.insert(user);
-                    }else{
-                        Log.v("RHH","Attempted insert of already existing user");
-                    }
+                    userDAO.insert(user);
                 }
         );
     }
@@ -310,5 +306,13 @@ public class AppRepository {
         });
         return true;
     }
+
+    public LiveData<List<Classroom>> getStudentClassrooms(int studentId) {
+        return classroomDAO.getClassroomsForStudent(studentId);
+    }
+
+
+
+
 
 }
