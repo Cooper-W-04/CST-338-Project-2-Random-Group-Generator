@@ -27,6 +27,8 @@ public class JoinAClassActivity extends AppCompatActivity {
     //the class the student wants to join
     private int classID;
 
+    private String className;
+
     //the id of the student who clicked the "Join A Classroom" button
     private int studentId;
 
@@ -80,11 +82,8 @@ public class JoinAClassActivity extends AppCompatActivity {
     private void addStudentToClass() {
         //since we are working with live data, we must check if user is a valid object otherwise we will get null pointer exception
         if(user != null){
-
-            //I AM WORKING ON GETTING THIS BUTTON TO WORK WITH DR.C
-            //WILL HAVE IT FIXED BY TOMORROW EVENING SO WILL BE SENDING ANOTHER PULL REQUEST...
-            //...WITH "Add Me" BUTTON FUNCTIONING (hopefully...)
-            boolean isAdded = false;
+            //repository.joinClassroomByName(className, user.getUserId());
+            boolean isAdded = repository.joinClassroomById(classID, user);
 
             if(isAdded){
                 Toast.makeText(this, user.getUsername() + " has successfully joined the class!", Toast.LENGTH_SHORT).show();
@@ -109,6 +108,7 @@ public class JoinAClassActivity extends AppCompatActivity {
         //need to put in a try catch because when the app runs it will try to parse a empty string into a integer
         // this is because when the app opens up to this page, user has not yet entered anything
         try{
+            className = binding.joinClassroomClassIDInputEditText.getText().toString();
             classID = Integer.parseInt(binding.joinClassroomClassIDInputEditText.getText().toString());
         } catch (NumberFormatException e) {
             Log.d(TAG, "Error reading value from class id edit text.");

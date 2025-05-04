@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">cst 338 project 2 random groups</string>
+    <string name="app_name">GroupUp © 2025 – All rights reserved.</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login!</string>
@@ -34,10 +34,10 @@
     <string name="welcome_to_groupup">Welcome to GroupUp</string>
     <string name="modify_preferences_for_class_name">Modify Preferences For {Class Name}</string>
     <string name="preferred">Preferred:</string>
-    <string name="enter_student_id_here">enter student id here</string>
+    <string name="enter_student_id_here">enter student id</string>
     <string name="enter">Enter!</string>
     <string name="avoid">Avoid:</string>
-    <string name="enter_student_id">enter student id here</string>
+    <string name="enter_student_id">enter student id</string>
     <string name="enter_">Enter!</string>
     <string name="back_">Go Back</string>
     <string name="welcomeCreateClasss">Welcome!</string>
