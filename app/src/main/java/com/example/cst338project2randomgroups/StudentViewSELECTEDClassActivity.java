@@ -75,7 +75,7 @@ public class StudentViewSELECTEDClassActivity extends AppCompatActivity {
         });
     }
 
-    static Intent studentViewSELECTEDClassesIntentFactory(Context context, int studentId){
+    public static Intent studentViewSELECTEDClassesIntentFactory(Context context, int studentId){
         Intent intent =  new Intent(context, StudentViewSELECTEDClassActivity.class);
         intent.putExtra("STUDENT_ID", studentId);
         return intent;

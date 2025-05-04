@@ -299,4 +299,12 @@ public class AppRepository {
         return true;
     }
 
+    public LiveData<List<Classroom>> getStudentClassrooms(int studentId) {
+        return classroomDAO.getClassroomsForStudent(studentId);
+    }
+
+
+
+
+
 }

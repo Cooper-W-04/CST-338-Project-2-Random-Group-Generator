@@ -36,4 +36,9 @@ public interface ClassroomDAO {
 
     @Query("SELECT * FROM classrooms WHERE classroomId IN (:ids)")
     LiveData<List<Classroom>> getClassroomsByIds(List<Integer> ids);
+
+    @Query("SELECT classrooms.* FROM classrooms INNER JOIN rosters ON classrooms.classroomId = rosters.classroomId WHERE rosters.studentId = :studentId")
+    LiveData<List<Classroom>> getClassroomsForStudent(int studentId);
+
+
 }
