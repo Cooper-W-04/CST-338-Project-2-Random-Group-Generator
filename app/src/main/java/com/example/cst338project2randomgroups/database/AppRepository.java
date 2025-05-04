@@ -40,11 +40,7 @@ public class AppRepository {
     public void insertUser(User user) {
         AppDatabase.databaseWriteExecutor.execute(() ->
                 {
-                    if(getUserById(user.getUserId())==null){
-                        userDAO.insert(user);
-                    }else{
-                        Log.v("RHH","Attempted insert of already existing user");
-                    }
+                    userDAO.insert(user);
                 }
         );
     }
