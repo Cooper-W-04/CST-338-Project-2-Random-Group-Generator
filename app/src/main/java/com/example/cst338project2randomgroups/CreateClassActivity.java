@@ -41,9 +41,14 @@ public class CreateClassActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String stringInput = binding.SubjectEditText.getText().toString();
-                Classroom newClass = new Classroom(teacherID,stringInput);
-                repository.insertClassroom(newClass);
-                Toast.makeText(CreateClassActivity.this, String.format("You have created %s",stringInput), Toast.LENGTH_SHORT).show();
+                if(!stringInput.isEmpty()){
+                    Classroom newClass = new Classroom(teacherID,stringInput);
+                    repository.insertClassroom(newClass);
+                    Toast.makeText(CreateClassActivity.this, String.format("You have created %s",stringInput), Toast.LENGTH_SHORT).show();
+                    binding.SubjectEditText.setText("");
+                }else{
+                    Toast.makeText(CreateClassActivity.this, "Please enter the class name before creating.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

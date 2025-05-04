@@ -51,9 +51,7 @@ public class AppRepository {
 
     public void insertClassroom(Classroom classroom){
         AppDatabase.databaseWriteExecutor.execute(()->{
-            if(getClassroomById(classroom.getClassroomId())==null){
-                classroomDAO.insert(classroom);
-            }
+            classroomDAO.insert(classroom);
         });
     }
 

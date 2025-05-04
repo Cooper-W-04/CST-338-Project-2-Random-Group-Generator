@@ -44,7 +44,7 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
             if (user != null && user.isAdmin()) {
                 binding.createClassroomButton.setVisibility(View.GONE);
             } else {
-                binding.createClassroomButton.setVisibility(View.VISIBLE);
+                binding.createClassroomButton.setVisibility(View.GONE); //changed this to gone
             }
         });
         //TODO:
