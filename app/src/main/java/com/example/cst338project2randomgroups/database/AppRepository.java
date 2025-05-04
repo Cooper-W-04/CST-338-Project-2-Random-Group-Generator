@@ -2,10 +2,12 @@ package com.example.cst338project2randomgroups.database;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
+import com.example.cst338project2randomgroups.SignupActivity;
 import com.example.cst338project2randomgroups.database.entities.Classroom;
 import com.example.cst338project2randomgroups.database.entities.Group;
 import com.example.cst338project2randomgroups.database.entities.Roster;
@@ -38,9 +40,21 @@ public class AppRepository {
     public void insertUser(User user) {
         AppDatabase.databaseWriteExecutor.execute(() ->
                 {
-                    userDAO.insert(user);
+                    if(getUserById(user.getUserId())==null){
+                        userDAO.insert(user);
+                    }else{
+                        Log.v("RHH","Attempted insert of already existing user");
+                    }
                 }
         );
+    }
+
+    public void insertClassroom(Classroom classroom){
+        AppDatabase.databaseWriteExecutor.execute(()->{
+            if(getClassroomById(classroom.getClassroomId())==null){
+                classroomDAO.insert(classroom);
+            }
+        });
     }
 
     public LiveData<User> getUserById(int userId) {

@@ -40,6 +40,11 @@
     <string name="enter_student_id">enter student id here</string>
     <string name="enter_">Enter!</string>
     <string name="back_">Go Back</string>
+    <string name="welcomeCreateClasss">Welcome!</string>
+    <string name="what_is_your_class_subject">What is your class subject?</string>
+    <string name="please_enter_your_subject">Please enter your subject</string>
+    <string name="create_your_class">Create your class</string>
+    <string name="go_back_to_main">Go back</string>
 
 
 </resources>

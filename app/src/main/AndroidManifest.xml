@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".CreateClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateClassroom"
+            android:exported="false" />
+        <activity
             android:name=".AuthorityViewClassroomsActivity"
             android:exported="false" />
         <activity
@@ -31,8 +37,8 @@
             android:name=".SignupActivity"
             android:exported="false" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".adminViewAllClassesActivity"/>
-        <activity android:name=".AddAdminActivity"/>
+        <activity android:name=".adminViewAllClassesActivity" />
+        <activity android:name=".AddAdminActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

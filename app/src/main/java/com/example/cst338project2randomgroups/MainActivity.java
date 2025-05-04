@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -68,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = AddAdminActivity.AddAdminActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
+        Button createClass = binding.createNewClassroom;
+        createClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = CreateClassActivity.CreateClassIntentFactory(getApplicationContext(),loggedInUserId);
                 startActivity(intent);
             }
         });
@@ -161,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
             binding.viewEnrolledClasses.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(getApplicationContext(), loggedInUserId);
                     startActivity(intent);
                 }

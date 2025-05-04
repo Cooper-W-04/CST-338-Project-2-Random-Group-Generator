@@ -47,6 +47,14 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
                 binding.createClassroomButton.setVisibility(View.VISIBLE);
             }
         });
+        //TODO:
+//        binding.createClassroomButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = CreateClass.CreateClassIntentFactory(getApplicationContext());
+//                startActivity(intent);
+//            }
+//        });
     }
 
     static Intent authorityViewClassroomsIntentFactory(Context context, int authId) {
