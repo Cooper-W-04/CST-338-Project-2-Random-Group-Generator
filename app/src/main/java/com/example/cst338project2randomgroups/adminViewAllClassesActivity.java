@@ -31,7 +31,7 @@ public class adminViewAllClassesActivity extends AppCompatActivity {
         
         repository = AppRepository.getRepository(getApplication());
 
-        repository.getUserById(id).observe(this, user1 -> {
+        repository.getUserById(id).observe(this, user -> {
             if (user != null){
                 this.user = user;
             }

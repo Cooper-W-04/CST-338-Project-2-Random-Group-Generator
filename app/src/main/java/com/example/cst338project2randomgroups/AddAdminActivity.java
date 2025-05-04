@@ -22,6 +22,10 @@ public class AddAdminActivity extends AppCompatActivity {
 
     private AppRepository repository;
 
+    private int id;
+    private User user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +33,27 @@ public class AddAdminActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         repository = AppRepository.getRepository(getApplication());
 
+        id = getIntent().getIntExtra("StudentId", -1);
+
+        repository.getUserById(id).observe(this, user -> {
+            if (user != null){
+                this.user = user;
+            }
+        });
+
+
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 verifyAdmin();
+            }
+        });
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), id);
+                startActivity(intent);
             }
         });
     }

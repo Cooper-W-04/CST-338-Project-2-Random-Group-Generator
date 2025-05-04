@@ -9,12 +9,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cst338project2randomgroups.database.AppRepository;
+import com.example.cst338project2randomgroups.database.entities.User;
 import com.example.cst338project2randomgroups.databinding.ActivityEditGroupsizeBinding;
 
 public class EditGroupSizeActivity extends AppCompatActivity {
     private ActivityEditGroupsizeBinding binding;
 
     private AppRepository repository;
+
+    private int id;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -23,10 +28,26 @@ public class EditGroupSizeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         repository = AppRepository.getRepository(getApplication());
 
+        id = getIntent().getIntExtra("StudentId", -1);
+
+        repository.getUserById(id).observe(this, user -> {
+            if (user != null){
+                this.user = user;
+            }
+        });
+
         binding.confirmNewMaxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateMax();
+            }
+        });
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), id);
+                startActivity(intent);
             }
         });
     }
