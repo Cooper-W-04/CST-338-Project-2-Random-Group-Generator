@@ -72,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button createClass = binding.createNewClassroom;
+        createClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = CreateClassActivity.CreateClassIntentFactory(getApplicationContext(),loggedInUserId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -210,11 +220,6 @@ public class MainActivity extends AppCompatActivity {
     static Intent mainActivityIntentFactory(Context context, int userId){
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
-        return intent;
-    }
-
-    static Intent mainActivityIntentFactory(Context context){
-        Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
 }

@@ -44,9 +44,17 @@ public class AuthorityViewClassroomsActivity extends AppCompatActivity {
             if (user != null && user.isAdmin()) {
                 binding.createClassroomButton.setVisibility(View.GONE);
             } else {
-                binding.createClassroomButton.setVisibility(View.VISIBLE);
+                binding.createClassroomButton.setVisibility(View.GONE); //changed this to gone
             }
         });
+        //TODO:
+//        binding.createClassroomButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = CreateClass.CreateClassIntentFactory(getApplicationContext());
+//                startActivity(intent);
+//            }
+//        });
     }
 
     static Intent authorityViewClassroomsIntentFactory(Context context, int authId) {
