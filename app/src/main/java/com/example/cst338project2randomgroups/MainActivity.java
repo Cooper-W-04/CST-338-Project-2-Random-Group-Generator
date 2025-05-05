@@ -73,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button editGroupSize = binding.editMaxGroupSize;
+        editGroupSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = EditGroupSizeActivity.EditGroupSizeActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
         Button createClass = binding.createNewClassroom;
         createClass.setOnClickListener(new View.OnClickListener() {
             @Override
