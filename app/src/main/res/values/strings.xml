@@ -45,6 +45,9 @@
     <string name="please_enter_your_subject">Please enter your subject</string>
     <string name="create_your_class">Create your class</string>
     <string name="go_back_to_main">Go back</string>
+    <string name="current_group_size_is_4">Current Group size is 4</string>
+    <string name="enter_the_new_max">Enter the new max</string>
+    <string name="update">Update</string>
 
 
 </resources>
