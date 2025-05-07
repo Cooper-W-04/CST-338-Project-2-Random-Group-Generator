@@ -102,6 +102,10 @@ public class JoinAClassActivity extends AppCompatActivity {
         return intent;
     }
 
+    static Intent joinAClassIntentFactory(Context context) {
+        return new Intent(context, JoinAClassActivity.class);
+    }
+
 
 
     private void getClassroomIdFromEditText() {

@@ -99,4 +99,8 @@ public class StudentViewALLClassesActivity extends AppCompatActivity {
         intent.putExtra("STUDENT_ID", studentId);
         return intent;
     }
+
+    static Intent studentViewALLClassesIntentFactory(Context context){
+        return  new Intent(context, StudentViewALLClassesActivity.class);
+    }
 }
