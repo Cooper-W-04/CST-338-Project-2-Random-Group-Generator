@@ -13,15 +13,15 @@
         android:id="@+id/titleViewSELECTEDClassesTextView"
         android:layout_width="383dp"
         android:layout_height="107dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="82dp"
         android:gravity="center"
         android:text="Viewing Science 100"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/teacherNameTextView"

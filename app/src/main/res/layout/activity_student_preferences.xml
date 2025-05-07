@@ -12,7 +12,7 @@
         android:id="@+id/titleModifyPrefsTextView"
         android:layout_width="383dp"
         android:layout_height="107dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="82dp"
         android:gravity="center"
         android:text="@string/modify_preferences_for_class_name"
         android:textSize="30sp"

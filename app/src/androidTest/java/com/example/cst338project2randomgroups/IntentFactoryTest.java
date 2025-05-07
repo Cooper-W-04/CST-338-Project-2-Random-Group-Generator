@@ -32,4 +32,23 @@ public class IntentFactoryTest {
 
         assertEquals(EditGroupSizeActivity.class.getName(), intent.getComponent().getClassName());
     }
+
+    //Ann J
+    @Test
+    public void checkJoinClassroomIntentFactory(){
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Intent intent = JoinAClassActivity.joinAClassIntentFactory(context);
+
+        assertEquals(JoinAClassActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+    @Test
+    public void checkStudentViewALLIntentFactory(){
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Intent intent = StudentViewALLClassesActivity.studentViewALLClassesIntentFactory(context);
+
+        assertEquals(StudentViewALLClassesActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+
 }
