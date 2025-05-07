@@ -49,6 +49,22 @@ public class IntentFactoryTest {
 
         assertEquals(StudentViewALLClassesActivity.class.getName(), intent.getComponent().getClassName());
     }
+    //Rian Hassett
+    @Test
+    public void checkSignUpActivityIntentFactory(){
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Intent intent = SignupActivity.SignupActivityIntentFactory(context);
+
+        assertEquals(SignupActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+    @Test
+    public void checkCreateClassroomActivityIntentFactory(){
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Intent intent = CreateClassActivity.CreateClassIntentFactory(context,7); //uses the intent factories for a teacher1
+
+        assertEquals(CreateClassActivity.class.getName(), intent.getComponent().getClassName());
+    }
 
 
 }
